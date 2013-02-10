@@ -1,0 +1,34 @@
+body{margin: 0;padding: 0}
+
+header{
+	background: #242424;
+	height: 65px;
+	color: #FFF;
+}
+
+header #title{
+	line-height: 60px;
+	font-size: 20px;
+	margin-left: 20px;
+	width: 400px;
+	float: left;
+}
+
+header nav ul {
+	margin: 0;
+}
+
+header nav{
+	float: right;
+	margin-right: 20px;
+	line-height: 60px;
+	
+}
+header nav ul li {
+	margin: 0 20px;
+	display: inline;
+} 
+
+header a{
+	color: #FFF;
+}

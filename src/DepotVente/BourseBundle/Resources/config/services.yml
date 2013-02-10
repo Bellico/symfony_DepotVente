@@ -1,0 +1,7 @@
+parameters:
+#    bourse.example.class: DepotVente\BourseBundle\Example
+
+services:
+#    bourse.example:
+#        class: %bourse.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

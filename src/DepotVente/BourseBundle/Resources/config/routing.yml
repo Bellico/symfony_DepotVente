@@ -1,0 +1,3 @@
+bourse_homepage:
+    pattern:  /
+    defaults: { _controller: BourseBundle:Home:index }
