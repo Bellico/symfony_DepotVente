@@ -5,12 +5,12 @@ namespace DepotVente\BourseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Article
+ * User
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="DepotVente\BourseBundle\Entity\ArticleRepository")
+ * @ORM\Entity(repositoryClass="DepotVente\BourseBundle\Entity\UserRepository")
  */
-class Article
+class User
 {
     /**
      * @var integer
@@ -24,24 +24,37 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="firstName", type="string", length=255)
      */
-    private $description;
+    private $firstName;
 
     /**
-     * @var float
+     * @var \stdClass
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(name="adress", type="object")
      */
-    private $price;
+    private $adress;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tel", type="integer")
+     */
+    private $tel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mail", type="string", length=80)
+     */
+    private $mail;
 
     /**
      * Get id
@@ -57,7 +70,7 @@ class Article
      * Set name
      *
      * @param string $name
-     * @return User
+     * @return Article
      */
     public function setName($name)
     {
@@ -77,48 +90,94 @@ class Article
     }
 
     /**
-     * Set description
+     * Set firstName
      *
-     * @param string $description
-     * @return User
+     * @param string $firstName
+     * @return Article
      */
-    public function setDescription($description)
+    public function setFirstName($firstName)
     {
-        $this->description = $description;
+        $this->firstName = $firstName;
     
         return $this;
     }
 
     /**
-     * Get description
+     * Get firstName
      *
      * @return string 
      */
-    public function getDescription()
+    public function getFirstName()
     {
-        return $this->description;
+        return $this->firstName;
     }
 
     /**
-     * Set price
+     * Set address
      *
-     * @param float $price
-     * @return User
+     * @param \stdClass $address
+     * @return Article
      */
-    public function setPrice($price)
+    public function setAdress($address)
     {
-        $this->price = $price;
+        $this->adress = $address;
     
         return $this;
     }
 
     /**
-     * Get price
+     * Get address
      *
-     * @return float 
+     * @return \stdClass 
      */
-    public function getPrice()
+    public function getAddress()
     {
-        return $this->price;
+        return $this->address;
+    }
+
+    /**
+     * Set tel
+     *
+     * @param integer $tel
+     * @return Article
+     */
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+    
+        return $this;
+    }
+
+    /**
+     * Get tel
+     *
+     * @return integer
+     */
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    /**
+     * Set mail
+     *
+     * @param string mail
+     * @return Article
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+    
+        return $this;
+    }
+
+    /**
+     * Get mail
+     *
+     * @return integer
+     */
+    public function getMail()
+    {
+        return $this->mail;
     }
 }
