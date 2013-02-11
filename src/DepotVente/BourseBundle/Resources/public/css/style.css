@@ -1,7 +1,7 @@
 body{
 	margin: 0;
 	padding: 0;
-	background: url("../img/ab.jpg");
+	background: url("../img/bg.jpg") no-repeat #000;
 	background-attachment: fixed;
 	background-size: 100%;
 	margin-top: 85px
@@ -14,12 +14,10 @@ header, footer{
 	width: 100%;
 	box-shadow: 0px 3px 7px #000;
 	position: fixed;
-	font-family: "Helvetica"
-}
-
-header{
+	font-family: "Helvetica";
 	top: 0;
 }
+
 
 header a:hover{
 	color: #FFF
@@ -30,6 +28,7 @@ footer{
 	position: fixed;
 	bottom: 0;
 	height: 65px;
+	padding: 10px
 }
 
 header #title{
@@ -75,6 +74,7 @@ header a{
 
 section.article{
 	height: 600px;
+	min-width: 1000px;
 	width: 100%;
 	background: #FFF;
 	margin-bottom: 440px;
@@ -84,7 +84,7 @@ section.article{
 .wrap{
 	width:1000px;
 	margin: 0 auto;
-	padding: 50px;
+	padding: 50px 0;
 }
 
 .section{
