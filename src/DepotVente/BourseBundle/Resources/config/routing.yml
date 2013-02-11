@@ -1,3 +1,8 @@
 bourse_homepage:
     pattern:  /
     defaults: { _controller: BourseBundle:Home:index }
+
+bourse_depotpage:
+    pattern:  /depot
+    defaults: { _controller: BourseBundle:Depot:index }
+

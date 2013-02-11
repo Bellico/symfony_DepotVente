@@ -1,17 +1,44 @@
-body{margin: 0;padding: 0}
+body{
+	margin: 0;
+	padding: 0;
+	background: url("../img/ab.jpg");
+	background-attachment: fixed;
+	background-size: 100%;
+	margin-top: 85px
+}
 
-header{
-	background: #242424;
+header, footer{
+	background: #252525;
 	height: 65px;
 	color: #FFF;
+	width: 100%;
+	box-shadow: 0px 3px 7px #000;
+	position: fixed;
+	font-family: "Helvetica"
+}
+
+header{
+	top: 0;
+}
+
+header a:hover{
+	color: #FFF
+}
+
+footer{
+	box-shadow: 0px -3px 7px #000;
+	position: fixed;
+	bottom: 0;
+	height: 65px;
 }
 
 header #title{
 	line-height: 60px;
 	font-size: 20px;
 	margin-left: 20px;
-	width: 400px;
+	width: 30%;
 	float: left;
+	
 }
 
 header nav ul {
@@ -22,8 +49,9 @@ header nav{
 	float: right;
 	margin-right: 20px;
 	line-height: 60px;
-	
+	font-weight: bold;
 }
+
 header nav ul li {
 	margin: 0 20px;
 	display: inline;
@@ -31,4 +59,46 @@ header nav ul li {
 
 header a{
 	color: #FFF;
+}
+
+
+#intro{
+	font-family: "Helvetica";
+	text-shadow: 2px 2px 2px #000;
+	font-size: 48px;
+	font-weight: 300;
+	margin: 200px auto;
+	background: none;
+	text-align: center;
+	color: #FFF
+}
+
+section.article{
+	height: 600px;
+	width: 100%;
+	background: #FFF;
+	margin-bottom: 440px;
+	box-shadow: 0px 0px 15px #000;
+}
+
+.wrap{
+	width:1000px;
+	margin: 0 auto;
+	padding: 50px;
+}
+
+.section{
+	min-height: 400px;
+	background: #FFF;
+	margin: 20px auto;
+	box-shadow: 0px 0px 15px #000;
+	border-radius: 5px
+}
+
+#content{
+	background: #FFF;
+	min-height: 400px;
+	margin: 20px auto;
+	box-shadow: 0px 0px 15px #000;
+	width: 100%
 }
