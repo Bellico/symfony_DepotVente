@@ -2,57 +2,59 @@
 
 namespace DepotVente\BourseBundle\Entity;
 
+use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  *
- * @ORM\Table()
+ * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="DepotVente\BourseBundle\Entity\UserRepository")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
+     * @ORM\Id    
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=255)
+     * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
+
      */
     private $firstName;
 
     /**
      * @var \stdClass
      *
-     * @ORM\Column(name="adress", type="object")
+     * @ORM\Column(name="adress", type="object", nullable=true)
      */
     private $adress;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="tel", type="integer")
+     * @ORM\Column(name="tel", type="integer", nullable=true)
      */
     private $tel;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=80)
+     * @ORM\Column(name="mail", type="string", length=80, nullable=true))
      */
     private $mail;
 

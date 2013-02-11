@@ -19,7 +19,9 @@
         "jms/security-extra-bundle": "1.2.*",
         "jms/di-extra-bundle": "1.1.*",
         "kriswallsmith/assetic": "1.1.*@dev",
-        "winzou/console-bundle": "dev-master"
+        "winzou/console-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "*"
+
     },
     "scripts": {
         "post-install-cmd": [
