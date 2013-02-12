@@ -59,6 +59,17 @@ class User extends BaseUser
     private $mail;
 
     /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="user")
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->products = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 

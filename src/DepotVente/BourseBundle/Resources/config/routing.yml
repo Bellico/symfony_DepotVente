@@ -6,3 +6,6 @@ bourse_depotpage:
     pattern:  /depot
     defaults: { _controller: BourseBundle:Depot:index }
 
+bourse_boursepage:
+    pattern: /bourse
+    defaults: { _controller: BourseBundle:Bourse:index }

@@ -5,12 +5,12 @@ namespace DepotVente\BourseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Article
+ * Bourse
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="DepotVente\BourseBundle\Entity\ArticleRepository")
+ * @ORM\Entity
  */
-class Article
+class Bourse
 {
     /**
      * @var integer
@@ -24,7 +24,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
@@ -36,24 +36,15 @@ class Article
     private $description;
 
     /**
-     * @var float
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="bourse")
      *
-     * @ORM\Column(name="price", type="float")
      */
-    private $price;
+    private $articles;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
-
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Bourse", inversedBy="articles")
-     * @ORM\JoinColumn(name="bourse_id", referencedColumnName="id")
-     */
-    private $bourse;
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -69,7 +60,7 @@ class Article
      * Set name
      *
      * @param string $name
-     * @return User
+     * @return Bourse
      */
     public function setName($name)
     {
@@ -92,7 +83,7 @@ class Article
      * Set description
      *
      * @param string $description
-     * @return User
+     * @return Bourse
      */
     public function setDescription($description)
     {
@@ -109,28 +100,5 @@ class Article
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set price
-     *
-     * @param float $price
-     * @return User
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return float 
-     */
-    public function getPrice()
-    {
-        return $this->price;
     }
 }
