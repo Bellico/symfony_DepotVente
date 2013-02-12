@@ -21,7 +21,6 @@
         "kriswallsmith/assetic": "1.1.*@dev",
         "winzou/console-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "*"
-
     },
     "scripts": {
         "post-install-cmd": [
