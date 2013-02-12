@@ -31,13 +31,21 @@ footer{
 	padding: 10px
 }
 
-header #title{
-	line-height: 60px;
+header #title a{
+	line-height: 65px;
 	font-size: 20px;
 	margin-left: 20px;
-	width: 30%;
+	width: 130px;
 	float: left;
-	
+	height: 100%;
+	text-align: center;
+	/*-webkit-transition: box-shadow 0.2s ease, height 3s linear;*/
+}
+
+header #title a:hover{
+	box-shadow: 5px 0px 7px #000;
+	border: 2px solid #000;
+	text-decoration: none;
 }
 
 header nav ul {
@@ -47,7 +55,7 @@ header nav ul {
 header nav{
 	float: right;
 	margin-right: 20px;
-	line-height: 60px;
+	line-height: 65px;
 	font-weight: bold;
 }
 
