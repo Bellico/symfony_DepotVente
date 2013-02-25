@@ -2,6 +2,7 @@
 
 namespace DepotVente\BourseBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -115,7 +116,7 @@ class Article
      * Set price
      *
      * @param float $price
-     * @return User
+     * @return Price
      */
     public function setPrice($price)
     {
@@ -133,4 +134,28 @@ class Article
     {
         return $this->price;
     }
+
+     /**
+     * Set user
+     *
+     * @param User $user
+     * @return User
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return user
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+	
 }

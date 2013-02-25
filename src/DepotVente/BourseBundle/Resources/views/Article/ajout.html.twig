@@ -1,0 +1,25 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} Depot {% endblock %}
+
+
+{% block body %}
+
+
+
+
+<section class="content">
+
+	<div class="well">
+ 		 <form method="post" {{ form_enctype(form) }}>
+  		  {{ form_widget(form) }}
+   		 <input type="submit" class="btn btn-primary" />
+ 		 </form>
+	</div>	
+
+</section>
+
+
+
+{% endblock %}
+
