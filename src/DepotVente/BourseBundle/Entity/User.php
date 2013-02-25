@@ -4,14 +4,15 @@ namespace DepotVente\BourseBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
  *
- * @ORM\Table(name="fos_user")
+ * @ORM\Table
  * @ORM\Entity(repositoryClass="DepotVente\BourseBundle\Entity\UserRepository")
  */
-class User extends BaseUser
+class User
 {
     /**
      * @var integer
@@ -37,11 +38,11 @@ class User extends BaseUser
     private $firstName;
 
     /**
-     * @var \stdClass
+     * @var string
      *
-     * @ORM\Column(name="adress", type="object", nullable=true)
+     * @ORM\Column(name="address", type="string", nullable=true)
      */
-    private $adress;
+    private $address;
 
     /**
      * @var integer
@@ -64,7 +65,7 @@ class User extends BaseUser
 
     public function __construct()
     {
-        parent::__construct();
+        //parent::__construct();
         $this->products = new ArrayCollection();
     }
 
@@ -127,12 +128,12 @@ class User extends BaseUser
     /**
      * Set address
      *
-     * @param \stdClass $address
+     * @param string $address
      * @return Article
      */
-    public function setAdress($address)
+    public function setAddress($address)
     {
-        $this->adress = $address;
+        $this->address = $address;
     
         return $this;
     }
@@ -140,7 +141,7 @@ class User extends BaseUser
     /**
      * Get address
      *
-     * @return \stdClass 
+     * @return string
      */
     public function getAddress()
     {
