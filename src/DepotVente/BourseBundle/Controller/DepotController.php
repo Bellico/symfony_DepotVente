@@ -8,6 +8,7 @@ class DepotController extends Controller
 {
     public function indexAction()
     {
+    	
         return $this->render('BourseBundle:Depot:depot.html.twig');
     }
 }
