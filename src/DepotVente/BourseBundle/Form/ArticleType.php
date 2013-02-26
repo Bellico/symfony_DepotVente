@@ -12,8 +12,8 @@ class ArticleType extends AbstractType
         $builder
             ->add('name', 'text', array('label' => 'Nom'))
             ->add('description', 'text', array('label' => 'Description'))
-	    ->add('price', 'number', array('label' => 'Prix'))
-	    ->add('user', new UserType())
+    	    ->add('price', 'number', array('label' => 'Prix'))
+    	    ->add('user', new UserType())
 	;
     }
 

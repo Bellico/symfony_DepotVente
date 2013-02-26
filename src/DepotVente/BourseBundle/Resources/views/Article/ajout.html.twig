@@ -6,19 +6,16 @@
 {% block body %}
 
 
-
-
 <section class="content">
 
-	<div class="well">
- 		 <form method="post" {{ form_enctype(form) }}>
-  		  {{ form_widget(form) }}
-   		 <input type="submit" class="btn btn-primary" />
- 		 </form>
-	</div>	
+	<div class="wrap">
+		<form method="post" {{ form_enctype(form) }}>
+			{{ form_widget(form) }}
+			<input type="submit" class="btn btn-primary" />
+		</form>
+	</div>
 
 </section>
-
 
 
 {% endblock %}
