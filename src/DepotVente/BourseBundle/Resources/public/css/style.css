@@ -19,7 +19,6 @@ header, footer{
 	z-index:100;
 }
 
-
 header a:hover{
 	color: #FFF
 }
@@ -90,7 +89,7 @@ header a{
 }
 
 #menu-responsive li{
-	width: 135px;
+
 	height: 65px;
 	line-height: 65px;
 	font-size: 20px;
@@ -102,7 +101,7 @@ header a{
 	background: #444;
 }
 
-#intro{
+.intro{
 	font-family: "Helvetica";
 	text-shadow: 2px 2px 2px #000;
 	font-size: 48px;
@@ -110,7 +109,8 @@ header a{
 	margin: 200px auto;
 	background: none;
 	text-align: center;
-	color: #FFF
+	color: #FFF;
+	line-height: normal;
 }
 
 section.article{
@@ -158,12 +158,16 @@ table.vertical td:first-child{
 	font-weight: bold;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 720px) {
   nav .menu-list {
     display:none;
   }
 
   #title:hover #menu-responsive{
 	display: block;
+  }
+
+  .wrap{
+  	width:700px
   }
 }

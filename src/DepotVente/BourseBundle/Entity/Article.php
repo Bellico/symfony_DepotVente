@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article
 {
+
+    CONST POURCENTAGE_BENEFICE = 10 ;
+
     /**
      * @var integer
      *
@@ -40,7 +43,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="text" , nullable=true))
      */
     private $description;
 
@@ -258,7 +261,6 @@ class Article
         return $this->dateDepot;
     }
 
-
     public function generateKey(){
         $str = "";
         $nbr = 6 ;
@@ -268,29 +270,6 @@ class Article
             $str .= $chaine[rand()%strlen($chaine)];
         }
         return $str;
-    }
-
-    /**
-     * Set key
-     *
-     * @param string $key
-     * @return Article
-     */
-    public function setKey($key)
-    {
-        $this->key = $key;
-
-        return $this;
-    }
-
-    /**
-     * Get key
-     *
-     * @return string
-     */
-    public function getKey()
-    {
-        return $this->key;
     }
 
     /**
@@ -314,5 +293,9 @@ class Article
     public function getNro()
     {
         return $this->nro;
+    }
+
+    public function getTotalPrice(){
+        return round($this->price * ( 1 + self::POURCENTAGE_BENEFICE / 100 ),2);
     }
 }

@@ -10,7 +10,7 @@
 
 	<div class="wrap">
 		<div class="alert">
-			<strong>Cette article est en attende de validation</strong>
+			<strong>Cette article est en attente de validation</strong>
 		</div>
 
 		<p>
@@ -28,7 +28,7 @@
 				<p> <span style="font-weight:bold"> Article : </span> {{article.name}} </p>
 				<p> <span style="font-weight:bold"> Prix de référence : </span> {{article.price}} €  </p>
 				<p> <span style="font-weight:bold"> Date de dépot : </span> {{article.dateDepot |date("d/m/Y") }} </p>
-				<div class="warning alert alert-error">Prix Total : {{article.price}} € </div>
+				<div class="warning alert alert-error">Prix Total : {{article.getTotalPrice}} € </div>
 			</div>
 
 			<div class="span5">

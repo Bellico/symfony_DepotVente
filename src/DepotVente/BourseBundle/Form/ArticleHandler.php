@@ -29,7 +29,7 @@ class ArticleHandler
 
             if( $this->form->isValid() )
             {
-		$this->onSuccess($this->form->getData());
+		      $this->onSuccess($this->form->getData());
 
                 return true;
             }
@@ -39,7 +39,7 @@ class ArticleHandler
 
     public function onSuccess(Article $article)
     {
-	$this->em->persist($article->getUser());
+        $this->em->persist($article->getUser());
         $this->em->persist($article);
         $this->em->flush();
     }

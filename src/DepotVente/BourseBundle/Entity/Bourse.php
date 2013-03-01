@@ -3,6 +3,7 @@
 namespace DepotVente\BourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Bourse
@@ -31,14 +32,28 @@ class Bourse
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="theme", type="string", length=255)
+     */
+    private $theme;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lieu", type="string", length=255)
+     */
+    private $lieu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text" , nullable=true))
      */
     private $description;
 
      /**
      * @var date
      *
-     * @ORM\Column(name="dateInscription", type="date")
+     * @ORM\Column(name="dateCreation", type="date")
      */
     private $dateCreated;
 
@@ -50,6 +65,7 @@ class Bourse
 
     public function __construct()
     {
+        $this->dateCreated = new \DateTime();
         $this->articles = new ArrayCollection();
     }
 
@@ -118,14 +134,14 @@ class Bourse
     public function setDateCreated($dateCreated)
     {
         $this->dateCreated = $dateCreated;
-    
+
         return $this;
     }
 
     /**
      * Get dateCreated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -141,7 +157,7 @@ class Bourse
     public function addArticle(\DepotVente\BourseBundle\Entity\Article $articles)
     {
         $this->articles[] = $articles;
-    
+
         return $this;
     }
 
@@ -158,10 +174,56 @@ class Bourse
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getArticles()
     {
         return $this->articles;
+    }
+
+    /**
+     * Set theme
+     *
+     * @param string $theme
+     * @return Bourse
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return string
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * Set lieu
+     *
+     * @param string $lieu
+     * @return Bourse
+     */
+    public function setLieu($lieu)
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    /**
+     * Get lieu
+     *
+     * @return string
+     */
+    public function getLieu()
+    {
+        return $this->lieu;
     }
 }

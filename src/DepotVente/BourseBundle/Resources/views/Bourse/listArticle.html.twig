@@ -4,21 +4,28 @@
 
 {% block body %}
 
-	<section id="intro" class="wrap">
-		{{text}}
-	</section>
+<section class="intro" class="wrap">
+	{{text}}  <a href="{{url}}"><button class="btn" type="button">Afficher la vue tableau</button></a>
+</section>
 
-	{% for article  in listArticle %}
+{% for article  in listArticle %}
 
-		<section class="article">
-			<div class="wrap">
-				<h1>
-					{{article.name}}
-				</h1>
-			</div>
-		</section>
+<section class="article">
+	<div class="wrap">
 
-	{% endfor %}
+		<a href="{{ path('bourse_article',{nro: article.nro}) }} "><button class="btn btn-large btn-primary" type="button">Voir la fiche complete</button></a>
+		<h1>{{article.name}}</h1>
+		<div class="important">Nro : {{article.nro}}</div>
+		<p> <span style="font-weight:bold"> Prix de référence : </span> {{article.price}} €  </p>
+		<p> <span style="font-weight:bold"> Date de dépot : </span> {{article.dateDepot |date("d/m/Y") }} </p>
+		<div class="warning alert alert-error">Prix Total : {{article.getTotalPrice}} € </div>
+		<h4>Description et informations</h4>
+		<div class="scrollable" style="height: 250px; overflow-y: auto"> {{article.description | nl2br }}</div>
+
+	</div>
+</section>
+
+{% endfor %}
 
 {% endblock %}
 

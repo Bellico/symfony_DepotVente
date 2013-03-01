@@ -5,34 +5,82 @@
 
 {% block body %}
 
-<section id="intro" class="wrap">
-	Bienvenue sur la bourse en ligne !
+
+<section class="intro" class="wrap">
+	Bienvenue sur l'application de gestion de votre bourse
 </section>
 
-<section class="article">
+{% if bourse != null  %}
+<section class="intro" class="wrap" style="color:#0c7d2b">
+	Votre Bourse : '{{bourse.name}}' est ouverte !
+</section>
+{% endif %}
+
+{% if bourse == null  %}
+<section class="intro" class="wrap" style="color:#953137">
+	Vous n'avez pas de bourse ouverte.
+</section>
+{% endif %}
+
+<section class="intro">
 	<div class="wrap">
-		<h1>
-			Un petit article
-		</h1>
+		<a href="#new"><button class="btn btn-large btn-block btn-success" type="button">Ouvrir une nouvelle bourse !</button></a>
 	</div>
 </section>
 
-<section class="article">
+<section class="content" id="new">
 	<div class="wrap">
-		<h1>
-			Un petit article
-		</h1>
+
+		<fieldset>
+			<legend> Créer une nouvelle bourse ! </legend>
+			<form class="form-horizontal" method="post" action="{{ path('bourse_newBourse') }}" {{ form_enctype(form) }}>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(form.name) }}
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(form.theme) }}
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(form.lieu) }}
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(form.description , { 'attr': {'style': 'height: 120px; width: 510px;' , 'placeholder' : 'Donnez une description à votre Bourse'}  }) }}
+					</div>
+				</div>
+
+				{{ form_rest(form) }}
+
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary">Valider</button>
+					</div>
+				</div>
+			</form>
+
+		</fieldset>
 	</div>
 </section>
 
-<section class="article">
+<section class="content">
 	<div class="wrap">
-		<h1>
-			Un petit article
-		</h1>
+		<h1>Creer une bourse de Test</h1>
+		<p>
+			Vous pouvez creer rapidement une bourse fictif afin de tester l'application
+		</p>
+		<a href="{{ path('bourse_BourseTest') }}"> <button class="btn btn-inverse" type="button">Creer?</button> </a>
 	</div>
 </section>
-
 
 {% endblock %}
 

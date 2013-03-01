@@ -74,7 +74,7 @@ class User
 
     public function __construct()
     {
-        //parent::__construct();
+        $this->dateInscription = new \DateTime();
         $this->products = new ArrayCollection();
     }
 
@@ -212,14 +212,14 @@ class User
     public function setDateInscription($dateInscription)
     {
         $this->dateInscription = $dateInscription;
-    
+
         return $this;
     }
 
     /**
      * Get dateInscription
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateInscription()
     {
@@ -235,7 +235,7 @@ class User
     public function addArticle(\DepotVente\BourseBundle\Entity\Article $articles)
     {
         $this->articles[] = $articles;
-    
+
         return $this;
     }
 
@@ -252,7 +252,7 @@ class User
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getArticles()
     {

@@ -11,16 +11,10 @@ class BourseController extends Controller
         return $this->render('BourseBundle:Bourse:index.html.twig');
     }
 
-    public function showArticleAction($id=0){
-
-        if($id==0){
-            $request = $this->getRequest();
-            $id = $request->query->get("id");
-            if(!isset($id)){$id = 0 ;}
-        }
+    public function showArticleAction($nro){
 
     	$repository = $this->getDoctrine()->getRepository("BourseBundle:Article");
-    	$article = $repository->find($id);
+    	$article = $repository->findOneBy(array("nro" => $nro ));
 
         if($article == null) {
              throw $this->createNotFoundException('Cette article n\'existe pas');
@@ -32,14 +26,30 @@ class BourseController extends Controller
     	return $this->render('BourseBundle:Bourse:article.html.twig', array('article' => $article));
     }
 
+    public function showArticleGetAction(){
+        $request = $this->getRequest();
+        $nro = $request->query->get("nro");
 
-    public function showAllArticleAction(){
+        if(!isset($nro)){$nro = 0;}
+        return $this->showArticleAction($nro);
+    }
+
+
+    public function showAllArticleAction($display){
         $request = $this->getRequest();
         $repository = $this->getDoctrine()->getRepository("BourseBundle:Article");
-        $list = $repository->findAll();
-        return $this->render('BourseBundle:Bourse:listArticle.html.twig', array(
-            'listArticle' => $list,
-            'text'=>'Liste de tous les articles'
+        $list = $repository->findBy(array(
+            "validate" => true
             ));
+
+        $d =  array(
+            'listArticle' => $list,
+            'text'=>'Liste de tous les articles',
+            'url' => $this->generateUrl('bourse_all_article', array('display' =>'tableau'))
+            );
+
+        return ($display == "liste" ) ?
+        $this->render('BourseBundle:Bourse:listArticle.html.twig', $d) :
+        $this->render('BourseBundle:Bourse:listArticleTab.html.twig', $d);
     }
 }

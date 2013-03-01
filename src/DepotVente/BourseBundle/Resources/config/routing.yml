@@ -2,9 +2,17 @@ bourse_homepage:
     pattern:  /
     defaults: { _controller: BourseBundle:Home:index }
 
+bourse_newBourse:
+    pattern:  /newBourse
+    defaults: { _controller: BourseBundle:Home:createBourse }
+
+bourse_BourseTest:
+    pattern:  /bourseTest
+    defaults: { _controller: BourseBundle:Home:bourseTest }
+
 bourse_depotpage:
     pattern:  /depot
-    defaults: { _controller: BourseBundle:Article:index }
+    defaults: { _controller: BourseBundle:Depot:index }
 
 bourse_boursepage:
     pattern: /bourse
@@ -12,14 +20,16 @@ bourse_boursepage:
 
 bourse_article_get:
     pattern: /article
-    defaults: { _controller: BourseBundle:Bourse:showArticle }
+    defaults: { _controller: BourseBundle:Bourse:showArticleGet }
 
 bourse_article:
-    pattern: /article/{id}
-    defaults: { _controller: BourseBundle:Bourse:showArticle , id : 0 }
+    pattern: /article/{nro}
+    defaults: { _controller: BourseBundle:Bourse:showArticle , nro : 0 }
     requirements :
-        id:  \d+
+        nro : "[a-zA-Z0-9]+"
 
 bourse_all_article:
-    pattern: /article/tous-les-article
-    defaults: { _controller: BourseBundle:Bourse:showAllArticle }
+    pattern: /article/tous-les-article/{display}
+    defaults: { _controller: BourseBundle:Bourse:showAllArticle , display : liste}
+    requirements :
+        display : "liste|tableau"

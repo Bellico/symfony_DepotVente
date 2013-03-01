@@ -11,8 +11,8 @@
 	<div class="wrap">
 		<fieldset>
 			<legend>Saisir l'ID d'un produit</legend>
-			<form class="form-search" method="get" action="{{ path('bourse_article') }}">
-				<input type="text" name="id" placeholder="Saisir le numéro d'identification" class="input">
+			<form class="form-search" method="get" action="{{ path('bourse_article_get') }}">
+				<input type="text" name="nro" placeholder="Saisir le numéro d'identification" class="input">
 				<button type="submit" class="btn">Rechercher</button>
 			</form>
 		</fieldset>
@@ -25,8 +25,13 @@
 			</p>
 
 			<form class="form-search">
-				<input type="text" placeholder="Saisir un nom" class="input-medium">
-				<button type="submit" class="btn btn-inverse">Par nom</button>
+				<input type="text" placeholder="Saisir un titre" class="input-medium">
+				<button type="submit" class="btn btn-inverse">Par titre</button>
+			</form>
+
+			<form class="form-search">
+				<input type="text" placeholder="Saisir des mots clés" class="input-medium">
+				<button type="submit" class="btn btn-inverse">Par mots clés</button>
 			</form>
 
 			<form class="form-search">
