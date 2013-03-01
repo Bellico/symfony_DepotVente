@@ -81,7 +81,7 @@ class Article
 
 
     public function __construct(){
-        $this->nro = $this->generateKey();
+        $this->key = $this->generateKey();
         $this->validate = false;
         $this->dateDepot = new \DateTime();
     }
@@ -291,28 +291,5 @@ class Article
     public function getKey()
     {
         return $this->key;
-    }
-
-    /**
-     * Set nro
-     *
-     * @param string $nro
-     * @return Article
-     */
-    public function setNro($nro)
-    {
-        $this->nro = $nro;
-
-        return $this;
-    }
-
-    /**
-     * Get nro
-     *
-     * @return string
-     */
-    public function getNro()
-    {
-        return $this->nro;
     }
 }

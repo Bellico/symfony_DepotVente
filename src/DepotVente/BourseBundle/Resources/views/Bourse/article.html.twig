@@ -1,0 +1,74 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} Depot {% endblock %}
+
+
+{% block body %}
+
+
+<section class="content">
+
+	<div class="wrap">
+
+		<p>
+			<button class="btn btn-large btn-success" type="button">Vendre</button>
+			<button class="btn btn-large btn-primary" type="button">Editer</button>
+			<button class="btn btn-large btn-danger" type="button">Supprimer</button>
+		</p>
+
+		<fieldset>
+
+			<legend>Article </legend>
+
+			<div class="span7">
+				<div class="important">Nro : {{article.nro}}</div>
+				<p> <span style="font-weight:bold"> Article : </span> {{article.name}} </p>
+				<p> <span style="font-weight:bold"> Prix de référence : </span> {{article.price}} €  </p>
+				<p> <span style="font-weight:bold"> Date de dépot : </span> {{article.dateDepot |date("d/m/Y") }} </p>
+				<div class="warning alert alert-error">Prix Total : {{article.price}} € </div>
+			</div>
+
+			<div class="span5">
+				<h4>Description et informations</h4>
+				<div class="scrollable" style="height: 300px; overflow-y: auto"> {{article.description}}</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>Informations Déposant </legend>
+
+			<table class="vertical table table-hover">
+				<tbody>
+					<tr>
+						<td>Nom</td>
+						<td>{{article.user.name}}</td>
+					</tr>
+					<tr>
+						<td>Prénom</td>
+						<td>{{article.user.firstName}}</td>
+					</tr>
+					<tr>
+						<td>Adresse</td>
+						<td>{{article.user.address}}</td>
+					</tr>
+					<tr>
+						<td>Téléhpone</td>
+						<td>{{article.user.tel}}</td>
+					</tr>
+					<tr>
+						<td>Email</td>
+						<td>{{article.user.mail}}</td>
+					</tr>
+					<tr>
+						<td>Date d'inscription</td>
+						<td>{{article.user.dateInscription |date("d/m/Y") }}</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</section>
+
+
+	{% endblock %}

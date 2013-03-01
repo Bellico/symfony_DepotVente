@@ -1,0 +1,24 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} {{text}} {% endblock %}
+
+{% block body %}
+
+	<section id="intro" class="wrap">
+		{{text}}
+	</section>
+
+	{% for article  in listArticle %}
+
+		<section class="article">
+			<div class="wrap">
+				<h1>
+					{{article.name}}
+				</h1>
+			</div>
+		</section>
+
+	{% endfor %}
+
+{% endblock %}
+

@@ -48,7 +48,7 @@ header #title .home{
 	/*-webkit-transition: box-shadow 0.2s ease, height 3s linear;*/
 }
 
-header #title .home:hover{
+header #title:hover .home{
 	box-shadow: 5px 0px 7px #000;
 	border: 2px solid #000;
 	text-decoration: none;
@@ -56,6 +56,7 @@ header #title .home:hover{
 
 header nav ul {
 	margin: 0;
+	font-size: 15px;
 }
 
 header nav{
@@ -136,6 +137,26 @@ section.content{
 	width: 100%
 }
 
+.scrollable{
+	text-align: justify;
+	padding-right: 10px
+}
+
+
+.important{
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.warning{
+	font-weight: bold;
+}
+
+table.vertical td:first-child{
+	font-weight: bold;
+}
 
 @media screen and (max-width: 640px) {
   nav .menu-list {

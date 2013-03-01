@@ -10,8 +10,8 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('label' => 'Nom'))
-            ->add('description', 'text', array('label' => 'Description'))
+            ->add('name', 'text', array('label' => 'Nom de l\'article '))
+            ->add('description', 'textarea', array('label' => 'Description'))
     	    ->add('price', 'number', array('label' => 'Prix'))
     	    ->add('user', new UserType())
 	;

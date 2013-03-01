@@ -5,15 +5,81 @@
 
 {% block body %}
 
-
 <section class="content">
 
 	<div class="wrap">
-		<form method="post" {{ form_enctype(form) }}>
-			{{ form_widget(form) }}
-			<input type="submit" class="btn btn-primary" />
-		</form>
+
+		<fieldset>
+			<legend> Déposer un objet : </legend>
+			<form class="form-vertical" method="post" {{ form_enctype(form) }}>
+
+				<div class="span4">
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.name) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.firstName) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.address) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.tel) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.mail) }}
+						</div>
+					</div>
+
+				</div>
+
+				<div class="span4">
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.name) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.description , { 'attr': {'style': 'height: 120px; width: 510px;'} }) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.price) }}
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary">Valider</button>
+
+				</div>
+
+				{{ form_rest(form) }}
+
+			</form>
+
+		</fieldset>
+
 	</div>
+
+</div>
 
 </section>
 

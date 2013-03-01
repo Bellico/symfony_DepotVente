@@ -9,3 +9,17 @@ bourse_depotpage:
 bourse_boursepage:
     pattern: /bourse
     defaults: { _controller: BourseBundle:Bourse:index }
+
+bourse_article_get:
+    pattern: /article
+    defaults: { _controller: BourseBundle:Bourse:showArticle }
+
+bourse_article:
+    pattern: /article/{id}
+    defaults: { _controller: BourseBundle:Bourse:showArticle , id : 0 }
+    requirements :
+        id:  \d+
+
+bourse_all_article:
+    pattern: /article/tous-les-article
+    defaults: { _controller: BourseBundle:Bourse:showAllArticle }
