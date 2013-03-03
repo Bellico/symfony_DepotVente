@@ -33,3 +33,31 @@ bourse_all_article:
     defaults: { _controller: BourseBundle:Bourse:showAllArticle , display : liste}
     requirements :
         display : "liste|tableau"
+
+bourse_listenUser:
+    pattern: /listenUser
+    defaults: { _controller: BourseBundle:Depot:listenUser }
+
+bourse_quitUser:
+    pattern: /quitUser
+    defaults: { _controller: BourseBundle:Depot:quitUser }
+
+bourse_addArticle:
+    pattern: /addArticle
+    defaults: { _controller: BourseBundle:Depot:addArticle }
+
+bourse_deleteArticleDepot:
+    pattern: /delete-Article-depot/{nro}
+    defaults: { _controller: BourseBundle:Depot:deleteArticle }
+
+bourse_saveDepot:
+    pattern: /save-depot
+    defaults: { _controller: BourseBundle:Depot:saveDepot }
+
+bourse_addArticleFacture:
+    pattern: /add-art-facture
+    defaults: { _controller: BourseBundle:Bourse:addArticle }
+
+bourse_removeFacture:
+    pattern: /remove-facture
+    defaults: { _controller: BourseBundle:Bourse:removeFacture }

@@ -1,16 +1,99 @@
 {% extends "BourseBundle::layout.html.twig" %}
 
-{% block title %} Depot {% endblock %}
+{% block title %} Bourse {% endblock %}
 
 
 {% block body %}
 
 
+<section class=" intro wrap">
+	Facturation
+</section>
+
+
+<section class="content">
+
+	<div class="wrap">
+		<h1 class="important">Nouvelle facture</h1>
+
+		<div class="navbar navbar-inverse">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Facture n° 85</a>
+				<form class="navbar-form pull-left" method="post" action="{{ path('bourse_addArticleFacture') }}">
+					<input type="text" name="nro" class="span3" placeholder="Ajouter un article">
+					<button class="btn btn-primary" type="submit">
+						<i class="icon-plus-sign icon-white"></i>
+					</button>
+				</form>
+				<ul class="nav pull-right">
+					<li class="active"><a href="#">{{lenghtTab}} article(s)</a></li>
+				</ul>
+			</div>
+		</div>
+		<table class="table table-bordered table-hover" >
+			<thead>
+				<tr>
+					<th>Nro Article</th>
+					<th>Titre Article</th>
+					<th>Quantité</th>
+					<th>Prix unitaire</th>
+					<th>Prix Total</th>
+					<th style="text-align:center">Détails</th>
+					<th style="text-align:center">Supprimer</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for article  in current_facture %}
+				<tr>
+					<td> {{article.nro | upper}} </td>
+					<td> {{article.name}} </td>
+					<td>8</td>
+					<td> {{article.getTotalPrice}} € </td>
+					<td> {{article.getTotalPrice}} € </td>
+					<td style="text-align:center"><a href="{{ path('bourse_article',{nro: article.nro}) }} "><button class="btn btn-info"><i class="icon-search icon-white"></i></button></a></td>
+					<td style="text-align:center"><a href="{{ path('bourse_article',{nro: article.nro}) }} "><button class="btn btn-danger"><i class="icon-remove-sign icon-white"></i></button></a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		{% if (current_facture) %}
+
+		<div class="pull-right">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th style="text-align:center" >Valider</th>
+						<th style="text-align:center" >Annuler</th>
+						<th style="text-align:center" >Montant Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="success">
+						<td style="text-align:center" ><a href=""> <button class="btn btn-success"><i class="icon-ok icon-white"></i></button></a> </td>
+						<td style="text-align:center" ><a href="{{ path('bourse_removeFacture') }}"> <button class="btn btn-danger"><i class="icon-remove icon-white"></i></button></a> </td>
+						<td style="text-align:center" class="important" >25.6 €</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		{% endif %}
+
+	</div>
+
+</section>
+
+
+<section class=" intro wrap">
+	Recherche d'articles
+</section>
+
 <section class="content">
 
 	<div class="wrap">
 		<fieldset>
-			<legend>Saisir l'ID d'un produit</legend>
+			<legend>Saisir l'ID d'un article</legend>
 			<form class="form-search" method="get" action="{{ path('bourse_article_get') }}">
 				<input type="text" name="nro" placeholder="Saisir le numéro d'identification" class="input">
 				<button type="submit" class="btn">Rechercher</button>
@@ -43,6 +126,7 @@
 	</div>
 
 </section>
+
 
 
 {% endblock %}

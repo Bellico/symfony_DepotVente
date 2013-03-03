@@ -14,7 +14,7 @@ class UserType extends AbstractType
             ->add('name', 'text', array('label' => 'Nom du déposant :'))
             ->add('firstName', 'text', array('label' => 'Prénom du déposant :'))
             ->add('address', 'text', array('label' => 'Adresse du déposant :'))
-            ->add('tel', 'text', array('label' => 'Téléphone :'))
+            ->add('tel', 'number', array('label' => 'Téléphone :'))
             ->add('mail', 'email', array('label' => 'Email :'))
         ;
     }

@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Bourse
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DepotVente\BourseBundle\Entity\BourseRepository")
  */
 class Bourse
 {

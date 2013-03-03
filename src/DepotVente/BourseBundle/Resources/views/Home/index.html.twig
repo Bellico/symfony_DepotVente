@@ -6,18 +6,18 @@
 {% block body %}
 
 
-<section class="intro" class="wrap">
+<section class=" intro wrap">
 	Bienvenue sur l'application de gestion de votre bourse
 </section>
 
 {% if bourse != null  %}
-<section class="intro" class="wrap" style="color:#0c7d2b">
+<section class=" intro wrap" style="color:#0c7d2b">
 	Votre Bourse : '{{bourse.name}}' est ouverte !
 </section>
 {% endif %}
 
 {% if bourse == null  %}
-<section class="intro" class="wrap" style="color:#953137">
+<section class=" intro wrap" style="color:#953137">
 	Vous n'avez pas de bourse ouverte.
 </section>
 {% endif %}

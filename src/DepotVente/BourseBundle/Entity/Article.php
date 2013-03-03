@@ -85,7 +85,7 @@ class Article
 
     public function __construct(){
         $this->nro = $this->generateKey();
-        $this->validate = false;
+        $this->validate = true;
         $this->dateDepot = new \DateTime();
     }
 

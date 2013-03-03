@@ -1,0 +1,252 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} Depot {% endblock %}
+
+
+{% block body %}
+
+{% if app.session.get('current_user') %}
+
+<section class="content">
+
+	<div class="wrap">
+
+		<h1 class="important">Numéro du déposant </h1>
+		<p class="important">{{app.session.get('current_user').id | upper }}</p>
+
+		{% for message in app.session.flashbag.get('addArt_success') %}
+			<div class="alert alert-success"> {{ message }} </div>
+      	{% endfor %}
+
+      	{% for message in app.session.flashbag.get('addArt_error') %}
+      		<div class="alert alert-error"> {{ message }} </div>
+      	{% endfor %}
+
+		<fieldset>
+			<legend> Deposer un article :  </legend>
+			<form class="form-horizontal" method="post" action="{{ path('bourse_addArticle') }}"  {{ form_enctype(formArticleDepot) }}>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(formArticleDepot.name) }}
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(formArticleDepot.description , { 'attr': {'style': 'height: 120px; width: 510px;'}  }) }}
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(formArticleDepot.price) }}
+					</div>
+				</div>
+
+				{{ form_rest(formArticleDepot) }}
+
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary">Valider</button>
+					</div>
+				</div>
+
+			</form>
+
+		</fieldset>
+
+	</div>
+
+</section>
+
+<section class="content">
+
+	<div class="wrap">
+
+		<h2>Depot en cours :</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Numero de l'article</th>
+					<th>Titre de l'article</th>
+					<th>Prix de référence</th>
+					<th>Prix Total</th>
+					<th>Supprimer</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for article  in app.session.get('current_depot') %}
+				<tr>
+					<td> {{article.nro | upper}} </td>
+					<td> {{article.name}} </td>
+					<td> {{article.price}} € </td>
+					<td> {{article.getTotalPrice}} € </td>
+					<td ><a href="{{ path('bourse_deleteArticleDepot',{nro: article.nro} ) }}"> <button class="btn btn-danger"><i class="icon-remove icon-white"></i></button></a> </td>
+				</tr>
+				{% endfor %}
+				<tr>
+					<td>...</td>
+					<td>...</td>
+					<td>...</td>
+					<td>...</td>
+					<td>...</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<a href="{{ path('bourse_saveDepot') }}"> <button class="btn btn-success" type="button">Terminé ! </button> </a>
+		<a href="{{ path('bourse_quitUser') }}"> <button class="btn btn-danger" type="button">Quitter le dossier en cours</button> </a>
+
+		<fieldset>
+
+			<h2>Informations Déposant </h2>
+
+			<table class="vertical table table-hover">
+				<tbody>
+					<tr>
+						<td>Nro</td>
+						<td>{{app.session.get('current_user').id}}</td>
+					</tr>
+					<tr>
+						<td>Nom</td>
+						<td>{{app.session.get('current_user').name}}</td>
+					</tr>
+					<tr>
+						<td>Prénom</td>
+						<td>{{app.session.get('current_user').firstName}}</td>
+					</tr>
+					<tr>
+						<td>Adresse</td>
+						<td>{{app.session.get('current_user').address}}</td>
+					</tr>
+					<tr>
+						<td>Téléhpone</td>
+						<td>{{app.session.get('current_user').tel}}</td>
+					</tr>
+					<tr>
+						<td>Email</td>
+						<td>{{app.session.get('current_user').mail}}</td>
+					</tr>
+					<tr>
+						<td>Date d'inscription</td>
+						<td>{{app.session.get('current_user').dateInscription | date("d/m/Y") }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>
+
+	</div>
+</section>
+
+
+
+{% else %}
+
+<section class="content">
+
+	<div class="wrap">
+		<h1 class="important">Numéro du déposant </h1>
+
+		<form class="important form-search" method="post" action="{{ path('bourse_listenUser') }}">
+			<input type="text" name="nro" placeholder="Saisir le numéro de déposant" class="input">
+			<button type="submit" class="btn">Valider</button>
+		</form>
+
+		{% for message in app.session.flashbag.get('depot_terminate') %}
+			<div class="alert alert-success"> <strong> Saisie validée !</strong> {{ message }} </div>
+      	{% endfor %}
+
+	</div>
+
+</section>
+
+{% endif %}
+
+
+<section class="intro wrap">
+	Nouveau Déposant ?
+</section>
+
+<section class="content">
+
+	<div class="wrap">
+
+		<fieldset>
+			<legend> Enregistrer un nouveau déposant avec un article : </legend>
+			<form class="form-vertical" method="post" {{ form_enctype(form) }}>
+
+				<div class="span4">
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.name) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.firstName) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.address) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.tel) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.user.mail) }}
+						</div>
+					</div>
+
+				</div>
+
+				<div class="span4">
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.name) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.description , { 'attr': {'style': 'height: 120px; width: 510px;'} }) }}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							{{ form_row(form.price) }}
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary">Valider</button>
+
+				</div>
+
+				{{ form_rest(form) }}
+
+			</form>
+
+		</fieldset>
+
+	</div>
+
+</div>
+
+</section>
+
+
+{% endblock %}
+

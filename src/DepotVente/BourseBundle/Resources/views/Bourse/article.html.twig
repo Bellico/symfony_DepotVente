@@ -1,6 +1,6 @@
 {% extends "BourseBundle::layout.html.twig" %}
 
-{% block title %} Depot {% endblock %}
+{% block title %} Article {{article.nro}}  {% endblock %}
 
 
 {% block body %}
@@ -11,7 +11,6 @@
 	<div class="wrap">
 
 		<p>
-			<button class="btn btn-large btn-success" type="button">Vendre</button>
 			<button class="btn btn-large btn-primary" type="button">Editer</button>
 			<button class="btn btn-large btn-danger" type="button">Supprimer</button>
 		</p>
@@ -40,6 +39,10 @@
 			<table class="vertical table table-hover">
 				<tbody>
 					<tr>
+						<td>Nro</td>
+						<td>{{article.user.id}}</td>
+					</tr>
+					<tr>
 						<td>Nom</td>
 						<td>{{article.user.name}}</td>
 					</tr>
@@ -65,10 +68,11 @@
 					</tr>
 				</tbody>
 			</table>
+		</fieldset>
 
-		</div>
+	</div>
 
-	</section>
+</section>
 
 
-	{% endblock %}
+{% endblock %}

@@ -15,34 +15,7 @@ class HomeController extends Controller
     {
 
         $repository = $this->getDoctrine()->getRepository("BourseBundle:Bourse");
-        $bourse = $repository->findOneBy(
-            array(),
-            array('dateCreated' => 'DESC','id'=>'DESC')
-        );
-
-
-
-
-    	/*$us = new Article();
-        $us -> setName("Article de Test")
-            -> setDescription("Description de Test Description de Test Description de Test Description de Test Description de Test Description de Test ")
-            -> setPrice(105);
-
- 		$em = $this->getDoctrine()->getManager();
-
-		$bourseRep = $em->getRepository("BourseBundle:Bourse");
-    	$bourse = $bourseRep->find(1);
-
-    	$usereRep = $em->getRepository("BourseBundle:User");
-    	$user = $usereRep->find(1);
-
-    	$us -> setUser($user);
-    	$us -> setBourse($bourse);
-
-
-        $rep = $em->getRepository("BourseBundle:Article");
-        $em -> persist($us);
-        $em -> flush();*/
+        $bourse = $repository->getCurrentBourse();
 
         $form = $this->createForm(new BourseType, new Bourse());
         return $this->render('BourseBundle:Home:index.html.twig',array('bourse' => $bourse,'form' => $form->createView() ));
