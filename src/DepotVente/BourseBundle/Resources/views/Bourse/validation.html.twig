@@ -1,6 +1,6 @@
 {% extends "BourseBundle::layout.html.twig" %}
 
-{% block title %} Article {{article.nro}} {% endblock %}
+{% block title %} Article Non Valide {{article.nro}} {% endblock %}
 
 
 {% block body %}
@@ -10,13 +10,11 @@
 
 	<div class="wrap">
 		<div class="alert">
-			<strong>Cette article est en attente de validation</strong>
+			<strong>Cette article n'est pas présent dans le dépôt</strong>
 		</div>
 
 		<p>
-			<button class="btn btn-large btn-success" type="button">Valider</button>
-			<button class="btn btn-large btn-primary" type="button">Editer</button>
-			<button class="btn btn-large btn-danger" type="button">Supprimer</button>
+			<a href="{{ path('bourse_modifArticle' , {nro : article.nro }) }}"><button class="btn btn-large btn-primary" type="button">Editer</button></a>
 		</p>
 
 		<fieldset>

@@ -3,6 +3,8 @@
 namespace DepotVente\BourseBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use DepotVente\BourseBundle\Entity\Facture;
+use DepotVente\BourseBundle\Entity\Achat;
 
 class BourseController extends Controller
 {
@@ -16,15 +18,25 @@ class BourseController extends Controller
         $facture = $session->get(self::CURRENT_FACTURE) ;
         $em = $this->getDoctrine()->getManager();
         $repArt = $em->getRepository("BourseBundle:Article");
+        $repfact = $em->getRepository("BourseBundle:Facture");
         $list = (isset($facture)) ? array() : null;
 
+        $lastFact = $repfact->getLast();
+        $totalFact = 0;
         if(isset($facture)){
             foreach ($facture as $v) {
-                array_push($list , $repArt->findOneBy(array("id" => $v)));
+                $a = $repArt->findOneBy(array("id" => $v));
+                array_push($list ,$a);
+                $totalFact += $a->getTotalPrice();
             }
         }
 
-        return $this->render('BourseBundle:Bourse:index.html.twig',array(self::CURRENT_FACTURE => $list , 'lenghtTab' => sizeof($list)));
+        return $this->render('BourseBundle:Bourse:index.html.twig',array(
+            self::CURRENT_FACTURE => $list ,
+            'lenghtTab' => sizeof($list) ,
+            "nroFact" => $lastFact,
+            "totalFact" => $totalFact
+            ));
     }
 
     public function showArticleAction($nro){
@@ -55,10 +67,10 @@ class BourseController extends Controller
         $request = $this->getRequest();
         $repArticle = $this->getDoctrine()->getRepository("BourseBundle:Article");
         $repBourse = $this->getDoctrine()->getRepository("BourseBundle:Bourse");
-
         $list = $repArticle->findBy(array(
             "validate" => true,
-            "bourse" => $bourse = $repBourse->getCurrentBourse()
+            "bourse" => $bourse = $repBourse->getCurrentBourse(),
+            "sold" => false
             ));
 
 
@@ -89,16 +101,13 @@ class BourseController extends Controller
         $bourse = $repBourse->getCurrentBourse();
         $nro=$request->get('nro');
 
-        $article = $repArt->findOneBy(array("nro" => $nro ,"validate" => true , "bourse" => $bourse ));
+        $article = $repArt->findOneBy(array("nro" => $nro ,"validate" => true , "bourse" => $bourse , "sold" => false ));
         if($article == null) {
-            throw $this->createNotFoundException('Cette article n\'existe pas');
+            $session->getFlashBag()->add('addArt_error', 'Aucun article correspondant.');
+        }else{
+            array_push($facture, $article->getId());
+            $session->set(self::CURRENT_FACTURE, $facture);
         }
-
-        array_push($facture, $article->getId());
-        $session->set(self::CURRENT_FACTURE, $facture);
-
-           // $session->getFlashBag()->add('addArt_success', 'Article enregistré.');
-
         return $this->redirect($this->generateUrl('bourse_boursepage'));
     }
 
@@ -107,4 +116,44 @@ class BourseController extends Controller
         $session->remove(self::CURRENT_FACTURE) ;
         return $this->redirect($this->generateUrl('bourse_boursepage'));
     }
+
+
+    public function deleteArticleAction($id){
+        $session = $this->get('session');
+        $facture = $session->get(self::CURRENT_FACTURE) ;
+        if(isset($facture)){
+            unset($facture[array_search($id, $facture)]);
+            $session->set(self::CURRENT_FACTURE, $facture);
+        }
+        return $this->redirect($this->generateUrl('bourse_boursepage'));
+    }
+
+    public function saveFactureAction(){
+       $em = $this->getDoctrine()->getManager();
+       $repBourse = $em->getRepository("BourseBundle:Bourse");
+       $repArt = $em->getRepository("BourseBundle:Article");
+       $session = $this->get('session');
+       $current_facture = $session->get(self::CURRENT_FACTURE) ;
+
+        if(isset($current_facture)){
+
+            $facture = new Facture();
+            $facture->setBourse($repBourse->getCurrentBourse())
+            ->setTotal(15);
+            $em -> persist($facture);
+
+            foreach ($current_facture as $v) {
+                $a = new Achat();
+                $a->setFacture($facture)->setArticle($repArt->findOneBy(array("id" => $v))->setSold(true));
+                $em->persist($a);
+            }
+            $em -> flush();
+
+            $session->remove(self::CURRENT_FACTURE);
+            $session->getFlashBag()->add('addArt_success', 'Facture enregistrée ! .');
+        }
+
+        return $this->redirect($this->generateUrl('bourse_boursepage'));
+    }
+
 }

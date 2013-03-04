@@ -50,10 +50,18 @@ class Bourse
      */
     private $description;
 
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="open", type="boolean")
+     */
+    private $open;
+
      /**
      * @var date
      *
-     * @ORM\Column(name="dateCreation", type="date")
+     * @ORM\Column(name="dateCreated", type="date")
      */
     private $dateCreated;
 
@@ -66,6 +74,7 @@ class Bourse
     public function __construct()
     {
         $this->dateCreated = new \DateTime();
+        $this->open = true;
         $this->articles = new ArrayCollection();
     }
 
@@ -225,5 +234,28 @@ class Bourse
     public function getLieu()
     {
         return $this->lieu;
+    }
+
+    /**
+     * Set open
+     *
+     * @param boolean $open
+     * @return Bourse
+     */
+    public function setOpen($open)
+    {
+        $this->open = $open;
+    
+        return $this;
+    }
+
+    /**
+     * Get open
+     *
+     * @return boolean 
+     */
+    public function getOpen()
+    {
+        return $this->open;
     }
 }

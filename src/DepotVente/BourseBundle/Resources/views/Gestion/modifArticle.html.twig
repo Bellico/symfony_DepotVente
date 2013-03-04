@@ -1,0 +1,50 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} Modification Article {% endblock %}
+
+
+{% block body %}
+<section class="content">
+
+	<div class="wrap">
+
+		<fieldset>
+			<legend> Modifier l'article : {{nroArticle | upper}} </legend>
+			<form class="form-horizontal" method="post" action="{{ path('bourse_modifArticle' , {nro : nroArticle }) }}"  {{ form_enctype(formModif) }}>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(formModif.name) }}
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(formModif.description , { 'attr': {'style': 'height: 120px; width: 510px;'}  }) }}
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						{{ form_row(formModif.price) }}
+					</div>
+				</div>
+
+				{{ form_rest(formModif) }}
+
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary">Valider</button>
+					</div>
+				</div>
+
+			</form>
+
+		</fieldset>
+
+	</div>
+
+</section>
+
+{% endblock %}
+

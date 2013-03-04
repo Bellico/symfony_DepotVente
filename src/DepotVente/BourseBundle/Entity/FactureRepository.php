@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class FactureRepository extends EntityRepository
 {
+
+	public function getLast(){
+		 $query = $this->createQueryBuilder('f')
+		 ->setMaxResults(1)
+		 ->orderBy('f.id', 'DESC');
+
+         $r = $query->getQuery()->getOneOrNullResult();
+         return ($r != null )? $r->getId() +1 : 1 ;
+       }
 }

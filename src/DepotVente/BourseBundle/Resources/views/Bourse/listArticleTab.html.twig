@@ -21,13 +21,12 @@
 			</tr>
 			{% for article  in listArticle %}
 
-
 			<tr>
 				<td>{{article.nro | upper}}</td>
 				<td>{{article.name}}</td>
 				<td>{{article.getTotalPrice}}</td>
 				<td>{{article.dateDepot | date("d/m/Y") }}</td>
-				<td><a href="">{{article.user.mail}}</a></td>
+				<td><a href="{{ path('bourse_deposant',{id: article.user.id}) }}"> {{article.user.name}} {{article.user.firstName}} (Nro : {{article.user.id}})</a></td>
 				<td><a href="{{ path('bourse_article',{nro: article.nro}) }} "><button class="btn btn-info" type="button">Voir la fiche</button></a></td>
 			</tr>
 

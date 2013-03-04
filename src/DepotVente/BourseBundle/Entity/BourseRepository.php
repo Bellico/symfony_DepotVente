@@ -13,14 +13,16 @@ use Doctrine\ORM\EntityRepository;
 class BourseRepository extends EntityRepository{
 
 	public function getCurrentBourse(){
-		// $query = $this->createQueryBuilder('b')
-		// ->orderBy('b.id', 'DESC')
-		// ->orderBy('b.dateCreated', 'DESC')
-		// ->setMaxResults(1);
-		// return $query->getQuery()->getSingleResult();
-		return $this->findOneBy(
+		/*$query = $this->createQueryBuilder('b')
+		->orderBy('b.dateCreated', 'DESC')
+		->orderBy('b.id', 'DESC')
+		->setMaxResults(1);
+		return $query->getQuery()->getOneOrNullResult();*/
+		$b = $this->findOneBy(
             array(),
             array('dateCreated' => 'DESC','id'=>'DESC')
         );
+
+        return ($b->getOpen())? $b : null ;
 	}
 }

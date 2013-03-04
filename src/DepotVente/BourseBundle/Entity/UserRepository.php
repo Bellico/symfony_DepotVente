@@ -12,4 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+	public function getTotalArticleVendu(){
+		$this->createQueryBuilder
+		->select('sum(a.price)')
+        ->where('id', '1 ')
+        ->getQuery()->getSingleScalarResult();
+	}
 }

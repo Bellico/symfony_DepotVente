@@ -35,29 +35,57 @@ bourse_all_article:
         display : "liste|tableau"
 
 bourse_listenUser:
-    pattern: /listenUser
+    pattern: /depot/listenUser
     defaults: { _controller: BourseBundle:Depot:listenUser }
 
 bourse_quitUser:
-    pattern: /quitUser
+    pattern: /depot/quitUser
     defaults: { _controller: BourseBundle:Depot:quitUser }
 
 bourse_addArticle:
-    pattern: /addArticle
+    pattern: /depot/addArticle
     defaults: { _controller: BourseBundle:Depot:addArticle }
 
 bourse_deleteArticleDepot:
-    pattern: /delete-Article-depot/{nro}
+    pattern: /depot/delete-Article-depot/{nro}
     defaults: { _controller: BourseBundle:Depot:deleteArticle }
 
 bourse_saveDepot:
-    pattern: /save-depot
+    pattern: /depot/save-depot
     defaults: { _controller: BourseBundle:Depot:saveDepot }
 
 bourse_addArticleFacture:
-    pattern: /add-art-facture
+    pattern: /bourse/add-art-facture
     defaults: { _controller: BourseBundle:Bourse:addArticle }
 
 bourse_removeFacture:
-    pattern: /remove-facture
+    pattern: /bourse/remove-facture
     defaults: { _controller: BourseBundle:Bourse:removeFacture }
+
+bourse_deleteArticleFacture:
+    pattern: /bourse/delete-Article-facture/{id}
+    defaults: { _controller: BourseBundle:Bourse:deleteArticle }
+
+bourse_saveFacture:
+    pattern: /bourse/saveFacture
+    defaults: { _controller: BourseBundle:Bourse:saveFacture }
+
+bourse_deposant:
+    pattern: /ficheDeposant/{id}
+    defaults: { _controller: BourseBundle:Gestion:ficheDeposant }
+
+bourse_modifArticle:
+    pattern: /modif-article/{nro}
+    defaults: { _controller: BourseBundle:Gestion:modifArticle }
+
+bourse_deleteArticle:
+    pattern: /delete-article/{nro}
+    defaults: { _controller: BourseBundle:Gestion:deleteArticle }
+
+bourse_tableauDeBord:
+    pattern: /tableau-de-bord
+    defaults: { _controller: BourseBundle:Gestion:tableauDeBord }
+
+bourse_closeBourse:
+    pattern: /closeBourse
+    defaults: { _controller: BourseBundle:Gestion:closeBourse }

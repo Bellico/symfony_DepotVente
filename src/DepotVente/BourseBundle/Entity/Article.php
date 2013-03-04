@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Article
 {
 
-    CONST POURCENTAGE_BENEFICE = 10 ;
+    CONST POURCENTAGE_BENEFICE = 25 ;
 
     /**
      * @var integer
@@ -61,6 +61,12 @@ class Article
      */
     private $validate;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="sold", type="boolean")
+     */
+    private $sold;
 
     /**
      * @var date
@@ -86,6 +92,7 @@ class Article
     public function __construct(){
         $this->nro = $this->generateKey();
         $this->validate = true;
+        $this->sold = false;
         $this->dateDepot = new \DateTime();
     }
 
@@ -265,7 +272,7 @@ class Article
         $str = "";
         $nbr = 6 ;
         $chaine = "abcdefghijklmnpqrstuvwxy0123456789";
-        srand((double)microtime()*1000);
+        srand(uniqid() * microtime());
         for($i=0; $i<$nbr; $i++) {
             $str .= $chaine[rand()%strlen($chaine)];
         }
@@ -297,5 +304,30 @@ class Article
 
     public function getTotalPrice(){
         return round($this->price * ( 1 + self::POURCENTAGE_BENEFICE / 100 ),2);
+    }
+
+
+
+    /**
+     * Set sold
+     *
+     * @param boolean $sold
+     * @return Article
+     */
+    public function setSold($sold)
+    {
+        $this->sold = $sold;
+
+        return $this;
+    }
+
+    /**
+     * Get sold
+     *
+     * @return boolean
+     */
+    public function getSold()
+    {
+        return $this->sold;
     }
 }

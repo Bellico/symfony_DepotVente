@@ -16,9 +16,17 @@
 	<div class="wrap">
 		<h1 class="important">Nouvelle facture</h1>
 
+		{% for message in app.session.flashbag.get('addArt_success') %}
+			<div class="alert alert-success"> {{ message }} </div>
+      	{% endfor %}
+
+      	{% for message in app.session.flashbag.get('addArt_error') %}
+      		<div class="alert alert-error"> {{ message }} </div>
+      	{% endfor %}
+
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
-				<a class="brand" href="#">Facture n° 85</a>
+				<a class="brand" href="#">Facture n° {{nroFact}}</a>
 				<form class="navbar-form pull-left" method="post" action="{{ path('bourse_addArticleFacture') }}">
 					<input type="text" name="nro" class="span3" placeholder="Ajouter un article">
 					<button class="btn btn-primary" type="submit">
@@ -35,8 +43,7 @@
 				<tr>
 					<th>Nro Article</th>
 					<th>Titre Article</th>
-					<th>Quantité</th>
-					<th>Prix unitaire</th>
+					<th>Prix reférence</th>
 					<th>Prix Total</th>
 					<th style="text-align:center">Détails</th>
 					<th style="text-align:center">Supprimer</th>
@@ -47,11 +54,10 @@
 				<tr>
 					<td> {{article.nro | upper}} </td>
 					<td> {{article.name}} </td>
-					<td>8</td>
-					<td> {{article.getTotalPrice}} € </td>
+					<td> {{article.getPrice}} € </td>
 					<td> {{article.getTotalPrice}} € </td>
 					<td style="text-align:center"><a href="{{ path('bourse_article',{nro: article.nro}) }} "><button class="btn btn-info"><i class="icon-search icon-white"></i></button></a></td>
-					<td style="text-align:center"><a href="{{ path('bourse_article',{nro: article.nro}) }} "><button class="btn btn-danger"><i class="icon-remove-sign icon-white"></i></button></a></td>
+					<td style="text-align:center"><a href="{{ path('bourse_deleteArticleFacture',{id: article.id}) }} "><button class="btn btn-danger"><i class="icon-remove-sign icon-white"></i></button></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -70,9 +76,9 @@
 				</thead>
 				<tbody>
 					<tr class="success">
-						<td style="text-align:center" ><a href=""> <button class="btn btn-success"><i class="icon-ok icon-white"></i></button></a> </td>
+						<td style="text-align:center" ><a href="{{ path('bourse_saveFacture') }}"> <button class="btn btn-success"><i class="icon-ok icon-white"></i></button></a> </td>
 						<td style="text-align:center" ><a href="{{ path('bourse_removeFacture') }}"> <button class="btn btn-danger"><i class="icon-remove icon-white"></i></button></a> </td>
-						<td style="text-align:center" class="important" >25.6 €</td>
+						<td style="text-align:center" class="important" >{{totalFact}} €</td>
 					</tr>
 				</tbody>
 			</table>

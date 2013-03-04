@@ -1,0 +1,136 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} Fiche Déposant {% endblock %}
+
+
+{% block body %}
+
+<section class=" intro wrap">
+	<p>
+		Nro Déposant : {{user.id}}
+	</p>
+	<p>
+		{{user.name}} {{user.firstName}}
+	</p>
+	<a href="{{ path('bourse_quitUser') }}"> <button class="btn btn-large btn-danger" type="button"><i class="icon-ban-circle"></i> Quitter le dossier</button> </a>
+</section>
+
+<section class="content">
+	<div class="wrap">
+
+		<h1>Article(s) Vendu(s)</h1>
+
+		<table class="table table-condensed">
+
+			<tr>
+				<th>Nro</th>
+				<th>Titre</th>
+				<th>Prix</th>
+				<th>Date de Dépot</th>
+				<th>Détails</th>
+			</tr>
+
+			{% for article  in articleVendu %}
+
+			<tr>
+				<td>{{article.nro | upper}}</td>
+				<td>{{article.name}}</td>
+				<td>{{article.getPrice}}</td>
+				<td>{{article.dateDepot | date("d/m/Y") }}</td>
+				<td><a href="{{ path('bourse_article',{nro: article.nro}) }} "><button class="btn btn-info" type="button">Voir la fiche</button></a></td>
+			</tr>
+
+			{% endfor %}
+		</table>
+
+		<div class="pull-right" style="width:20%">
+
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th style="text-align:center" >Gain Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="error">
+						<td style="text-align:center" class="important" >{{totalVendu}} €</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+</section>
+
+
+<section class="content">
+	<div class="wrap">
+
+		<h1>Article(s) non Vendu(s)</h1>
+
+		<table class="table table-condensed">
+
+			<tr>
+				<th>Nro</th>
+				<th>Titre</th>
+				<th>Prix</th>
+				<th>Date de Dépot</th>
+				<th>Détails</th>
+			</tr>
+
+			{% for article  in articleNonVendu %}
+			<tr>
+				<td>{{article.nro | upper}}</td>
+				<td>{{article.name}}</td>
+				<td>{{article.getPrice}}</td>
+				<td>{{article.dateDepot | date("d/m/Y") }}</td>
+				<td><a href="{{ path('bourse_article',{nro: article.nro}) }} "><button class="btn btn-info" type="button">Voir la fiche</button></a></td>
+			</tr>
+			{% endfor %}
+		</table>
+
+	</div>
+</section>
+
+<section class="content">
+	<div class="wrap">
+
+		<h1>Informations Déposant </h1>
+
+		<table class="vertical table table-hover">
+			<tbody>
+				<tr>
+					<td>Nro</td>
+					<td>{{user.id}}</td>
+				</tr>
+				<tr>
+					<td>Nom</td>
+					<td>{{user.name}}</td>
+				</tr>
+				<tr>
+					<td>Prénom</td>
+					<td>{{user.firstName}}</td>
+				</tr>
+				<tr>
+					<td>Adresse</td>
+					<td>{{user.address}}</td>
+				</tr>
+				<tr>
+					<td>Téléhpone</td>
+					<td>{{user.tel}}</td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td>{{user.mail}}</td>
+				</tr>
+				<tr>
+					<td>Date d'inscription</td>
+					<td>{{user.dateInscription | date("d/m/Y") }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+
+{% endblock %}
+

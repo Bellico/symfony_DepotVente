@@ -7,12 +7,24 @@
 
 {% if app.session.get('current_user') %}
 
+<section class="intro wrap">
+	<a href="{{ path('bourse_deposant',{id: app.session.get('current_user').id}) }} ">
+		<button class="btn btn-large btn-warning" type="button"><i class="icon-tags"></i> Fiche complete déposant</button>
+	</a>
+	<a href="{{ path('bourse_quitUser') }}">
+		<button class="btn btn-large btn-danger" type="button"><i class="icon-ban-circle"></i> Quitter le dossier en cours</button>
+	</a>
+</section>
+
 <section class="content">
 
 	<div class="wrap">
 
-		<h1 class="important">Numéro du déposant </h1>
-		<p class="important">{{app.session.get('current_user').id | upper }}</p>
+		<p class="important">
+			{{app.session.get('current_user').name}}
+			{{app.session.get('current_user').firstName}}
+			(Nro : {{app.session.get('current_user').id}})
+		</p>
 
 		{% for message in app.session.flashbag.get('addArt_success') %}
 			<div class="alert alert-success"> {{ message }} </div>
@@ -96,12 +108,14 @@
 		</table>
 
 
-		<a href="{{ path('bourse_saveDepot') }}"> <button class="btn btn-success" type="button">Terminé ! </button> </a>
-		<a href="{{ path('bourse_quitUser') }}"> <button class="btn btn-danger" type="button">Quitter le dossier en cours</button> </a>
+		<p>
+			<a href="{{ path('bourse_saveDepot') }}"> <button class="btn btn-success" type="button">Terminé ! </button> </a>
+			<a href="{{ path('bourse_quitUser') }}"> <button class="btn btn-danger" type="button">Quitter le dossier en cours</button> </a>
+		</p>
 
 		<fieldset>
 
-			<h2>Informations Déposant </h2>
+			<h4>Informations Déposant </h4>
 
 			<table class="vertical table table-hover">
 				<tbody>
@@ -243,7 +257,6 @@
 
 	</div>
 
-</div>
 
 </section>
 

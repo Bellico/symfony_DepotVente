@@ -11,8 +11,8 @@
 	<div class="wrap">
 
 		<p>
-			<button class="btn btn-large btn-primary" type="button">Editer</button>
-			<button class="btn btn-large btn-danger" type="button">Supprimer</button>
+			<a href="{{ path('bourse_modifArticle' , {nro : article.nro }) }}"><button class="btn btn-large btn-primary" type="button">Editer</button></a>
+			<a href="{{ path('bourse_deleteArticle' , {nro : article.nro }) }}"><button class="btn btn-large btn-danger" type="button">Sortir du dépot</button></a>
 		</p>
 
 		<fieldset>
@@ -21,7 +21,7 @@
 
 			<div class="span7">
 				<div class="important">Nro : {{article.nro}}</div>
-				<p> <span style="font-weight:bold"> Article : </span> {{article.name}} </p>
+				<h3> Article : {{article.name}}</h1>
 				<p> <span style="font-weight:bold"> Prix de référence : </span> {{article.price}} €  </p>
 				<p> <span style="font-weight:bold"> Date de dépot : </span> {{article.dateDepot |date("d/m/Y") }} </p>
 				<div class="warning alert alert-error">Prix Total : {{article.getTotalPrice}} € </div>

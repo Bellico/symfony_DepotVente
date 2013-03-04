@@ -51,18 +51,22 @@ class HomeController extends Controller
         $atc1 = new Article();
         $atc1->setName("Pomme rouge")->setDescription("Une belle pomme rouge")->setPrice("2.85")->setValidate(true)->setUser($usr1)->setBourse($bourse);
         $em -> persist($atc1);
+        sleep(1);
 
         $atc2 = new Article();
         $atc2->setName("Fraise")->setDescription("Une fraise pas comme les autres")->setPrice("5")->setValidate(true)->setUser($usr1)->setBourse($bourse);
         $em -> persist($atc2);
+        sleep(1);
 
         $atc3 = new Article();
         $atc3->setName("Cerise")->setDescription("Ca donne faim")->setPrice("2.3")->setValidate(true)->setUser($usr2)->setBourse($bourse);
         $em -> persist($atc3);
+        sleep(1);
 
         $atc4 = new Article();
         $atc4->setName("Banane")->setDescription("Bon pour la santé")->setPrice("5")->setValidate(true)->setUser($usr2)->setBourse($bourse);
         $em -> persist($atc4);
+        sleep(1);
 
         $atc5 = new Article();
         $atc5->setName("Kiwi")->setDescription("Kiwi mure et juteux pas cher")->setPrice("1.22")->setValidate(true)->setUser($usr3)->setBourse($bourse);
