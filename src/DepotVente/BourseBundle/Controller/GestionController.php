@@ -103,9 +103,65 @@ class GestionController extends Controller
 
 	public function tableauDeBordAction(){
 		$em = $this->getDoctrine()->getManager();
-		$repository = $em->getRepository("BourseBundle:Article");
+        $repArt = $em->getRepository("BourseBundle:Article");
+        $repBourse = $em->getRepository("BourseBundle:Bourse");
+        $repFacture = $em->getRepository("BourseBundle:Facture");
+        $bourse = $repBourse->getCurrentBourse();
 
-       	return $this->render('BourseBundle:Gestion:tableaudebord.html.twig');
+        if($bourse != null) {
+            $listFacture = $repFacture->getFacturesFromBourse($bourse);
+            $totalFacture = 0 ;
+            foreach ($listFacture as $facture) {
+                $totalFacture += $facture["total"];
+
+            }
+            $bourse->gain = $totalFacture;
+            $listArticle = $repArt->findBy(array("bourse" => $bourse ));
+            $bourse->artDepose = count($listArticle) ;
+            $listArticle = $repArt->findBy(array("bourse" => $bourse , "sold" => true ));
+            if(empty($bourse->artDepose)){$bourse->artDepose =0 ;}
+            $bourse->artVendu = count($listArticle);
+            if(empty($bourse->artVendu)){$bourse->artVendu =0 ; $bourse->percent = 0 ;}else{
+                $bourse->percent=  round(($bourse->artVendu * 100) /  $bourse->artDepose)  ;
+            }
+        }
+
+
+
+        /*Ancien Bourse*/
+		$listBourse = $repBourse->findBy(
+            array(),
+            array('dateCreated' => 'DESC','id'=>'DESC')
+        );
+
+        if($bourse != null) {
+             unset($listBourse[0]);
+        }
+
+        foreach ($listBourse as $v) {
+            $v->long = $v->getDateCreated()->diff($v->getDateClose(),true)->format('%a');
+            $listFacture = $repFacture->getFacturesFromBourse($v);
+            $totalFacture = 0 ;
+            foreach ($listFacture as $facture) {
+                $totalFacture += $facture["total"];
+
+            }
+            $v->gain = $totalFacture;
+
+            $listArticle = $repArt->findBy(array("bourse" => $v ));
+            $v->artDepose = count($listArticle) ;
+            $listArticle = $repArt->findBy(array("bourse" => $v , "sold" => true ));
+            if(empty($v->artDepose)){$v->artDepose =0 ;}
+            $v->artVendu = count($listArticle);
+            if(empty($v->artVendu)){$v->artVendu =0 ;}else{
+                $v->artVendu=  $v->artVendu . " ( ". round(($v->artVendu * 100) /  $v->artDepose) ." % ) " ;
+            }
+        }
+
+       	return $this->render('BourseBundle:Gestion:tableaudebord.html.twig',array(
+            "bourse" => $bourse,
+            "listBourse" => $listBourse
+            ));
 	}
 
 

@@ -65,6 +65,13 @@ class Bourse
      */
     private $dateCreated;
 
+     /**
+     * @var date
+     *
+     * @ORM\Column(name="dateClose", type="date" , nullable=true))
+     */
+    private $dateClose;
+
     /**
      * @ORM\OneToMany(targetEntity="Article", mappedBy="bourse")
      *
@@ -244,18 +251,42 @@ class Bourse
      */
     public function setOpen($open)
     {
+        $this->dateClose = new \DateTime();
         $this->open = $open;
-    
+
         return $this;
     }
 
     /**
      * Get open
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOpen()
     {
         return $this->open;
+    }
+
+    /**
+     * Set dateClose
+     *
+     * @param \DateTime $dateClose
+     * @return Bourse
+     */
+    public function setDateClose($dateClose)
+    {
+        $this->dateClose = $dateClose;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateClose
+     *
+     * @return \DateTime 
+     */
+    public function getDateClose()
+    {
+        return $this->dateClose;
     }
 }

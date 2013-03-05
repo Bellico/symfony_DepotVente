@@ -3,6 +3,7 @@
 namespace DepotVente\BourseBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use DepotVente\BourseBundle\Entity\Bourse;
 
 /**
  * FactureRepository
@@ -20,5 +21,13 @@ class FactureRepository extends EntityRepository
 
          $r = $query->getQuery()->getOneOrNullResult();
          return ($r != null )? $r->getId() +1 : 1 ;
-       }
+    }
+
+    public function getFacturesFromBourse($b){
+    	$query = $this->createQueryBuilder('f')
+        ->where('f.bourse = :bourse')
+        ->setParameter('bourse',$b);
+
+	    return $query->getQuery()->getArrayResult();
+	}
 }

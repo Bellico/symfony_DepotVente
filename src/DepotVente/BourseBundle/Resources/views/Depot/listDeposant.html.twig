@@ -1,0 +1,30 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} {{text}} {% endblock %}
+
+{% block body %}
+
+<section class="intro wrap">
+	{{text}}  <a href="{{ path('bourse_all_deposant' , {display : 'tableau' })}}"><button class="btn" type="button">Afficher la vue tableau</button></a>
+</section>
+
+{% for user  in listUsers %}
+
+<section class="article">
+	<div class="wrap">
+		<a href="{{ path('bourse_deposant',{id: user.id}) }} "><button class="btn btn-large btn-primary" type="button">Voir la fiche complete</button></a>
+		<h1>{{user.name}} {{user.firstName}}</h1>
+		<div class="important">Nro : {{user.id}}</div>
+		<p> <span style="font-weight:bold"> Adresse : </span> {{user.address}} </p>
+		<p> <span style="font-weight:bold"> Téléphone : </span> {{user.tel}} </p>
+		<p> <span style="font-weight:bold"> Email : </span> {{user.mail}} </p>
+		<p> <span style="font-weight:bold"> Date d'inscription : </span> {{user.dateInscription |date("d/m/Y") }}  </p>
+		<p> <span style="font-weight:bold"> Nombre total d'articles déposés au cours de cette bourse : </span> <span class="label label-info"> {{user.nbTotalDepoBourse }}</span></p>
+		<p> <span style="font-weight:bold"> Nombre total d'articles vendus au cours de cette bourse  : </span> <span class="label label-success">{{user.nbTotalVente }}</span></p>
+	</div>
+</section>
+
+{% endfor %}
+
+{% endblock %}
+

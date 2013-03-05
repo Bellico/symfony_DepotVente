@@ -22,6 +22,11 @@ class HomeController extends Controller
     }
 
     public function createBourseAction(){
+        $em = $this->getDoctrine()->getManager();
+        $repBourse = $em->getRepository("BourseBundle:Bourse");
+        $bourse = $repBourse->getCurrentBourse();
+        if($bourse != null ) {$bourse->setOpen(false);}
+
         $bourse = new Bourse();
         $form = $this->createForm(new BourseType, $bourse);
         $formHandler = new BourseHandler($form, $this->get('request'), $this->getDoctrine()->getEntityManager());

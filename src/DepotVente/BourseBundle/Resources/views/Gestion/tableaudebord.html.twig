@@ -5,22 +5,109 @@
 {% block body %}
 
 
+{% if bourse != null  %}
+
 <section class=" intro wrap">
 	<p>
-		Ma bourse
+		Ma bourse : {{bourse.name}}
 	</p>
 	<a href="{{ path('bourse_closeBourse') }}"> <button class="btn btn-large btn-warning" type="button"><i class="icon-off"></i> Fermer cette bourse</button> </a>
 </section>
-
 
 <section class="content">
 
 	<div class="wrap">
 
-		lol
+		<h1>Information bourse</h1>
+		<div class="span7">
+			<p> <span style="font-weight:bold"> Bourse : </span> {{bourse.name}}</p>
+			<p> <span style="font-weight:bold"> Theme : </span> {{bourse.theme}} </p>
+			<p> <span style="font-weight:bold"> Lieu : </span> {{bourse.lieu}} </p>
+			<p> <span style="font-weight:bold"> Ouverture :  </span> {{bourse.dateCreated |date("d/m/Y")}}  </p>
+		</div>
+
+		<div class="span5">
+			<h4>Description</h4>
+			<div class="scrollable" style="height: 150px; overflow-y: auto"> {{bourse.description | nl2br }}</div>
+		</div>
+
+
+
+		<div style="width:500px; margin: 0 auto">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th style="text-align:center" >Valider</th>
+						<th style="text-align:center" >Annuler</th>
+						<th style="text-align:center" >Montant Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="warning important">
+						<td style="text-align:center">ol</td>
+						<td style="text-align:center">{{bourse.artDepose}}</td>
+						<td style="text-align:center">{{bourse.artVendu}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div style="clear:both"></div>
+
+		<div class="progress">
+		  <div class="important bar" style="width: {{bourse.percent}}%;">{{bourse.percent}} % </div>
+		</div>
 
 	</div>
 
+</section>
+
+{% endif %}
+
+
+<!-- <h1>Liste des bourse + voir détails (date nombre de depot nb de vente nb facture )</h1>
+		<h2>Liste fature , nb Article , montan total + détaisl</h2>
+		<h2>nombre inscript pendant la bourese</h2> -->
+
+
+<section class="content">
+	<div class="wrap">
+
+		<h1>Mes anciennes bourses</h1>
+		<table class="table table-bordered table-hover" >
+			<thead>
+				<tr>
+					<th>Bourse</th>
+					<th>Theme</th>
+					<th>Lieu</th>
+					<th>Ouverture</th>
+					<th>Fermeture</th>
+					<th>Durée</th>
+					<th>Montant des ventes</th>
+					<th>Articles déposés</th>
+					<th>Articles vendus</th>
+					<th style="text-align:center">Détails</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for bourse  in listBourse %}
+				<tr>
+					<td> {{bourse.name}} </td>
+					<td> {{bourse.theme}} </td>
+					<td> {{bourse.lieu}}  </td>
+					<td> {{bourse.dateCreated |date("d/m/Y") }}</td>
+					<td> {{bourse.dateClose |date("d/m/Y") }}</td>
+					<td> {{bourse.long}} jour(s)</td>
+					<td> {{bourse.gain}} € </td>
+					<td> {{bourse.artDepose}} </td>
+					<td> {{bourse.artVendu}} </td>
+					<td style="text-align:center"><a href="{{ path('bourse_deleteArticleFacture',{id: 1}) }} "><button class="btn btn-danger"><i class="iconremovesign icon-white"></i></button></a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
 </section>
 
 {% endblock %}

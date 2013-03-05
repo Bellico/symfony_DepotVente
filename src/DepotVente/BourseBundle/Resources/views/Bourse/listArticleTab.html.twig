@@ -4,15 +4,20 @@
 
 {% block body %}
 
+
+<section class="intro wrap">
+	{{text}}  <a href="{{ path('bourse_all_article' , {display : 'liste' })}}"><button class="btn" type="button">Afficher la vue liste</button></a>
+</section>
+
+
 <section class="article">
 
 	<div class="wrap">
 
-		<h1>{{text}}</h1>
-
 		<table class="table table-condensed">
 
-			<tr><th>Nro</th>
+			<tr>
+				<th>Nro</th>
 				<th>Titre</th>
 				<th>Prix</th>
 				<th>Date de Dépot</th>

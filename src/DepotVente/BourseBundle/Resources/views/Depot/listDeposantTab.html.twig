@@ -1,0 +1,46 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} {{text}} {% endblock %}
+
+{% block body %}
+
+
+<section class="intro wrap">
+	{{text}}  <a href="{{ path('bourse_all_deposant' , {display : 'liste' })}}"><button class="btn" type="button">Afficher la vue liste</button></a>
+</section>
+
+
+<section class="content">
+
+	<div class="wrap">
+
+		<table class="table table-condensed">
+
+			<tr>
+				<th>Nro</th>
+				<th>Nom</th>
+				<th>Prénom</th>
+				<th>Date d'inscription</th>
+				<th>Articles déposés</th>
+				<th>Articles vendus</th>
+				<th>Détails</th>
+			</tr>
+			{% for user  in listUsers %}
+			<tr>
+				<td>{{user.id }}</td>
+				<td>{{user.name}}</td>
+				<td>{{user.firstName}}</td>
+				<td>{{user.dateInscription | date("d/m/Y") }}</td>
+				<td>{{user.nbTotalDepoBourse}}</td>
+				<td>{{user.nbTotalVente}}</td>
+				<td><a href="{{ path('bourse_deposant',{id: user.id}) }} "><button class="btn btn-info" type="button">Voir la fiche</button></a></td>
+			</tr>
+			{% endfor %}
+
+		</table>
+	</div>
+
+</section>
+
+{% endblock %}
+

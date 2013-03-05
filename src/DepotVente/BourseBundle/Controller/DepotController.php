@@ -145,4 +145,34 @@ class DepotController extends Controller
 		}
 	}
 
+	public function showAllDeposantAction($display){
+       	$em = $this->getDoctrine()->getManager();
+        $repUser = $em->getRepository("BourseBundle:User");
+        $repArticle = $em->getRepository("BourseBundle:Article");
+        $repBourse = $em->getRepository("BourseBundle:Bourse");
+        $bourse = $repBourse->getCurrentBourse();
+        $list = $repUser->findBy(array(),array("id" => "DESC"));
+
+
+        foreach ($list as $v) {
+        	$v->nbTotalDepoBourse = count($repArticle->findBy(array(
+	            "bourse" => $bourse,
+	            "user" => $v
+	            )));
+        	$v->nbTotalVente = count($repArticle->findBy(array(
+	            "bourse" => $bourse ,
+	            "sold" => true,
+	            "user" => $v
+	            )));
+        }
+
+        $d =  array(
+            'listUsers' => $list,
+            'text'=>'Liste de tous les déposants inscrits'
+            );
+        return ($display == "liste" ) ?
+        $this->render('BourseBundle:Depot:listDeposant.html.twig', $d) :
+        $this->render('BourseBundle:Depot:listDeposantTab.html.twig', $d);
+    }
+
 }

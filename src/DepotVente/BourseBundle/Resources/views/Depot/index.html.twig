@@ -9,7 +9,7 @@
 
 <section class="intro wrap">
 	<a href="{{ path('bourse_deposant',{id: app.session.get('current_user').id}) }} ">
-		<button class="btn btn-large btn-warning" type="button"><i class="icon-tags"></i> Fiche complete déposant</button>
+		<button class="btn btn-large btn-warning" type="button"><i class="icon-tags"></i> Fiche complète déposant</button>
 	</a>
 	<a href="{{ path('bourse_quitUser') }}">
 		<button class="btn btn-large btn-danger" type="button"><i class="icon-ban-circle"></i> Quitter le dossier en cours</button>
@@ -168,6 +168,10 @@
 			<button type="submit" class="btn">Valider</button>
 		</form>
 
+		<section class=" intro wrap">
+			<a href="{{ path('bourse_all_deposant') }}"><button class="btn btn-large btn-warning">Liste complète des déposants</button></a>
+		</section>
+
 		{% for message in app.session.flashbag.get('depot_terminate') %}
 			<div class="alert alert-success"> <strong> Saisie validée !</strong> {{ message }} </div>
       	{% endfor %}
@@ -256,7 +260,6 @@
 		</fieldset>
 
 	</div>
-
 
 </section>
 

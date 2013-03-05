@@ -76,8 +76,7 @@ class BourseController extends Controller
 
         $d =  array(
             'listArticle' => $list,
-            'text'=>'Liste de tous les articles',
-            'url' => $this->generateUrl('bourse_all_article', array('display' =>'tableau'))
+            'text'=>'Liste de tous les articles'
             );
         return ($display == "liste" ) ?
         $this->render('BourseBundle:Bourse:listArticle.html.twig', $d) :
@@ -142,11 +141,15 @@ class BourseController extends Controller
             ->setTotal(15);
             $em -> persist($facture);
 
+            $totalFact = 0;
             foreach ($current_facture as $v) {
                 $a = new Achat();
-                $a->setFacture($facture)->setArticle($repArt->findOneBy(array("id" => $v))->setSold(true));
+                $article = $repArt->findOneBy(array("id" => $v))->setSold(true);
+                $a->setFacture($facture)->setArticle($article);
+                $totalFact += $article->getTotalPrice();
                 $em->persist($a);
             }
+            $facture->setTotal($totalFact);
             $em -> flush();
 
             $session->remove(self::CURRENT_FACTURE);

@@ -89,3 +89,10 @@ bourse_tableauDeBord:
 bourse_closeBourse:
     pattern: /closeBourse
     defaults: { _controller: BourseBundle:Gestion:closeBourse }
+
+bourse_all_deposant:
+    pattern: /list-deposant/{display}
+    defaults: { _controller: BourseBundle:Depot:showAllDeposant , display : liste}
+    requirements :
+        display : "liste|tableau"
+
