@@ -30,7 +30,13 @@ bourse_article:
 
 bourse_all_article:
     pattern: /article/tous-les-article/{display}
-    defaults: { _controller: BourseBundle:Bourse:showAllArticle , display : liste}
+    defaults: { _controller: BourseBundle:Bourse:showAllArticle , display : liste }
+    requirements :
+        display : "liste|tableau"
+
+bourse_article_selection:
+    pattern: /article/se-lection/{display}
+    defaults: { _controller: BourseBundle:Bourse:showListArticle, display : liste }
     requirements :
         display : "liste|tableau"
 
@@ -95,4 +101,3 @@ bourse_all_deposant:
     defaults: { _controller: BourseBundle:Depot:showAllDeposant , display : liste}
     requirements :
         display : "liste|tableau"
-

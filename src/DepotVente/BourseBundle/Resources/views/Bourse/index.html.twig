@@ -115,19 +115,11 @@
 				 <a href="{{ path('bourse_all_article') }}"> <button type="submit" class="btn btn-primary">Tous les articles</button> </a>
 			</p>
 
-			<form class="form-search">
-				<input type="text" placeholder="Saisir un titre" class="input-medium">
-				<button type="submit" class="btn btn-inverse">Par titre</button>
-			</form>
-
-			<form class="form-search">
-				<input type="text" placeholder="Saisir des mots clés" class="input-medium">
-				<button type="submit" class="btn btn-inverse">Par mots clés</button>
-			</form>
-
-			<form class="form-search">
-				<input type="text" placeholder="Saisir un prix" class="input-medium">
-				<button type="submit" class="btn btn-inverse">Par prix</button>
+			<form class="form-search" method="post" action="{{ path('bourse_article_selection') }}">
+				<input type="text" name="keyword" placeholder="Saisir un mot clé" class="input-medium">
+				<input type="text" name="minPrice" placeholder="Saisir votre prix min" class="input-medium">
+				<input type="text" name="maxPrice" placeholder="Saisir votre prix max" class="input-medium">
+				<button type="submit" class="btn btn-inverse">Rechercher</button>
 			</form>
 
 		</fieldset>

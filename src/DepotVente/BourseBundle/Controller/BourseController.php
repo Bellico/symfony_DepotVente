@@ -54,6 +54,50 @@ class BourseController extends Controller
     	return $this->render('BourseBundle:Bourse:article.html.twig', array('article' => $article));
     }
 
+    public function showListArticleAction($display) {
+	$request = $this->getRequest();
+
+	$keyword = $request->request->get('keyword');
+	$minPrice = $request->request->get('minPrice');
+	$maxPrice = $request->request->get('maxPrice');
+
+
+        $repArticle = $this->getDoctrine()->getRepository("BourseBundle:Article");
+        $repBourse = $this->getDoctrine()->getRepository("BourseBundle:Bourse");
+        $qb = $repArticle->createQueryBuilder('a')
+            ->where("a.validate = true")
+	    ->andWhere('a.bourse = :bourse')
+	    ->andWhere('a.sold = false')
+	    ->setParameter('bourse', $repBourse->getCurrentBourse());
+	
+	if($minPrice != null) {
+	    $qb = $qb->andWhere('a.price > :minPrice')
+	    	     ->setParameter('minPrice', $minPrice);
+	exit($minPrice);
+	}
+
+	if($maxPrice != null) {
+	    $qb = $qb->andWhere('a.price < :maxPrice')
+	   	     ->setParameter('maxPrice', $maxPrice);
+	}
+
+	if($keyword != null) {
+	    $qb = $qb->andWhere('a.name LIKE :keyword')
+	    	     ->orWhere('a.description LIKE :keyword')
+		     ->setParameter('keyword', $keyword);
+	}
+	    	    
+	$list = $qb->getQuery()->getResult();
+        $d =  array(
+            'listArticle' => $list,
+            'text'=>'Liste de tous les articles'
+            );
+        return ($display == "liste" ) ?
+        $this->render('BourseBundle:Bourse:listArticle.html.twig', $d) :
+        $this->render('BourseBundle:Bourse:listArticleTab.html.twig', $d);
+	
+    }
+
     public function showArticleGetAction(){
         $request = $this->getRequest();
         $nro = $request->query->get("nro");
@@ -158,5 +202,4 @@ class BourseController extends Controller
 
         return $this->redirect($this->generateUrl('bourse_boursepage'));
     }
-
 }
