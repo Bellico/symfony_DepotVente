@@ -23,6 +23,7 @@ class BourseRepository extends EntityRepository{
             array('dateCreated' => 'DESC','id'=>'DESC')
         );
 
+		if($b==null){return null;}
         return ($b->getOpen())? $b : null ;
 	}
 }

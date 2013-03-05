@@ -37,6 +37,10 @@ class HomeController extends Controller
     public function bourseTestAction(){
         $em = $this->getDoctrine()->getManager();
 
+        $repBourse = $em->getRepository("BourseBundle:Bourse");
+        $c_bourse = $repBourse->getCurrentBourse();
+        if($c_bourse != null ) {$c_bourse->setOpen(false);}
+
         $bourse = new Bourse();
         $bourse->setName("Bourse de Test")->setDescription("Ceci est une simple bourse pour tester sur le theme des Fruits")->setLieu("Nancy")->setTheme("Fruits");
         $em -> persist($bourse);

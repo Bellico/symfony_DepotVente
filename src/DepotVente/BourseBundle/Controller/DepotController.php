@@ -120,6 +120,7 @@ class DepotController extends Controller
 		$session = $this->get('session');
 		$em = $this->getDoctrine()->getManager();
 		$repository = $em->getRepository("BourseBundle:Bourse");
+		$repUser = $em->getRepository("BourseBundle:User");
         $bourse = $repository->getCurrentBourse();
         $dep = $session->get(self::CURRENT_DEPOT) ;
 
@@ -130,7 +131,7 @@ class DepotController extends Controller
 
         if($bourse != null) {
 			$usr = $session->get(self::CURRENT_USER);
-			$em->persist($usr);
+			$usr = $repUser->findOneBy(array("id" => $usr->getId()));
 			foreach ($dep as $v) {
 				$v->setUser($usr);
 				$v->setBourse($bourse);

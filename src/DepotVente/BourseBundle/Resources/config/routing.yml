@@ -35,7 +35,7 @@ bourse_all_article:
         display : "liste|tableau"
 
 bourse_article_selection:
-    pattern: /article/se-lection/{display}
+    pattern: /article/recherche-critere/{display}
     defaults: { _controller: BourseBundle:Bourse:showListArticle, display : liste }
     requirements :
         display : "liste|tableau"

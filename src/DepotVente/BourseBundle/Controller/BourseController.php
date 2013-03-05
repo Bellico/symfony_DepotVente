@@ -55,47 +55,47 @@ class BourseController extends Controller
     }
 
     public function showListArticleAction($display) {
-	$request = $this->getRequest();
+    	$request = $this->getRequest();
 
-	$keyword = $request->request->get('keyword');
-	$minPrice = $request->request->get('minPrice');
-	$maxPrice = $request->request->get('maxPrice');
+    	$keyword = $request->request->get('keyword');
+    	$minPrice = $request->request->get('minPrice');
+    	$maxPrice = $request->request->get('maxPrice');
 
 
         $repArticle = $this->getDoctrine()->getRepository("BourseBundle:Article");
         $repBourse = $this->getDoctrine()->getRepository("BourseBundle:Bourse");
         $qb = $repArticle->createQueryBuilder('a')
-            ->where("a.validate = true")
-	    ->andWhere('a.bourse = :bourse')
-	    ->andWhere('a.sold = false')
-	    ->setParameter('bourse', $repBourse->getCurrentBourse());
-	
-	if($minPrice != null) {
-	    $qb = $qb->andWhere('a.price > :minPrice')
-	    	     ->setParameter('minPrice', $minPrice);
-	exit($minPrice);
-	}
+                         ->where("a.validate = true")
+                         ->andWhere('a.bourse = :bourse')
+                         ->andWhere('a.sold = false')
+                         ->setParameter('bourse', $repBourse->getCurrentBourse());
 
-	if($maxPrice != null) {
-	    $qb = $qb->andWhere('a.price < :maxPrice')
-	   	     ->setParameter('maxPrice', $maxPrice);
-	}
+    	if($minPrice != null) {
+    	    $qb = $qb->andWhere('a.price > :minPrice')
+    	    ->setParameter('minPrice', $minPrice);
+    	}
 
-	if($keyword != null) {
-	    $qb = $qb->andWhere('a.name LIKE :keyword')
-	    	     ->orWhere('a.description LIKE :keyword')
-		     ->setParameter('keyword', $keyword);
-	}
-	    	    
-	$list = $qb->getQuery()->getResult();
-        $d =  array(
-            'listArticle' => $list,
-            'text'=>'Liste de tous les articles'
-            );
+    	if($maxPrice != null) {
+    	    $qb = $qb->andWhere('a.price < :maxPrice')
+    	   	->setParameter('maxPrice', $maxPrice);
+    	}
+
+    	if($keyword != null) {
+    	    $qb = $qb->andWhere('a.name LIKE :keyword')
+    	    ->orWhere('a.description LIKE :keyword')
+    		->setParameter('keyword', '%'.$keyword.'%');
+    	}
+
+    	$list = $qb->getQuery()->getResult();
+            $d =  array(
+                'listArticle' => $list,
+                'text'=>'Liste de tous les articles'
+                );
+
         return ($display == "liste" ) ?
         $this->render('BourseBundle:Bourse:listArticle.html.twig', $d) :
         $this->render('BourseBundle:Bourse:listArticleTab.html.twig', $d);
-	
+
     }
 
     public function showArticleGetAction(){
@@ -145,7 +145,7 @@ class BourseController extends Controller
         $nro=$request->get('nro');
 
         $article = $repArt->findOneBy(array("nro" => $nro ,"validate" => true , "bourse" => $bourse , "sold" => false ));
-        if($article == null) {
+        if($article == null || in_array($article->getId(),$facture)) {
             $session->getFlashBag()->add('addArt_error', 'Aucun article correspondant.');
         }else{
             array_push($facture, $article->getId());
