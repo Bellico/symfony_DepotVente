@@ -1,0 +1,40 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} Liste des articles - Facture {{facture.id}} {% endblock %}
+
+{% block body %}
+
+<section class="content">
+
+	<div class="wrap">
+
+		<h1>Facture n° {{facture.id}} - Liste des articles </h1>
+
+		<table class="table table-condensed">
+
+			<tr>
+				<th>Nro Article</th>
+				<th>Titre</th>
+				<th>Prix</th>
+				<th>Date de Dépot</th>
+				<th>Détails</th>
+			</tr>
+			{% for achat  in listAchat %}
+
+			<tr>
+				<td>{{achat.article.nro | upper}}</td>
+				<td>{{achat.article.name}}</td>
+				<td>{{achat.article.getTotalPrice}}</td>
+				<td>{{achat.article.dateDepot | date("d/m/Y") }}</td>
+				<td><a href="{{ path('bourse_article',{nro: achat.article.nro}) }} "><button class="btn btn-info" type="button">Voir la fiche</button></a></td>
+			</tr>
+
+			{% endfor %}
+
+		</table>
+	</div>
+
+</section>
+
+{% endblock %}
+

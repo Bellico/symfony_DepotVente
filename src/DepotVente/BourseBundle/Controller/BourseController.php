@@ -188,7 +188,7 @@ class BourseController extends Controller
             $totalFact = 0;
             foreach ($current_facture as $v) {
                 $a = new Achat();
-                $article = $repArt->findOneBy(array("id" => $v))->setSold(true);
+                $article = $repArt->findOneBy(array("id" => $v))->setSold(true)->setValidate(false);
                 $a->setFacture($facture)->setArticle($article);
                 $totalFact += $article->getTotalPrice();
                 $em->persist($a);

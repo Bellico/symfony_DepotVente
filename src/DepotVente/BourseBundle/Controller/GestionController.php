@@ -39,7 +39,6 @@ class GestionController extends Controller
 		$articleNonVendu = $repArticle->findBy(array(
             "bourse" => $bourse = $repBourse->getCurrentBourse(),
             "sold" => false,
-            "validate" => true,
             "user" => $user
             ));
 
@@ -47,7 +46,9 @@ class GestionController extends Controller
 			'user' => $user,
 			'articleVendu' => $articleVendu,
 			'articleNonVendu' => $articleNonVendu,
-			"totalVendu" => $totalVendu
+			"totalVendu" => $totalVendu,
+            "nbArticleVendu" => count($articleVendu),
+            "nbArticleNonVendu" => count($articleNonVendu),
 			));
 	}
 
@@ -124,6 +125,27 @@ class GestionController extends Controller
             if(empty($bourse->artVendu)){$bourse->artVendu =0 ; $bourse->percent = 0 ;}else{
                 $bourse->percent=  round(($bourse->artVendu * 100) /  $bourse->artDepose)  ;
             }
+
+            $listFacture = $repFacture->findBy(array("bourse" => $bourse ));
+            $bourse->nbFacture = count($listFacture) ;
+
+            $listArticleRetire = $repArt->findBy(array("bourse" => $bourse , "sold" => false , "validate" => false ));
+            $bourse->nbArtRetire = count($listArticleRetire) ;
+
+            $recette = 0;
+            foreach ($listFacture as $v) {
+                $recette += $v->getTotal();
+            }
+            $bourse->recette = $recette ;
+
+             $totalVendu = $repArt->createQueryBuilder('a')
+            ->select('sum(a.price)')
+            ->where('a.bourse = :bourse' , 'a.sold = :sold ')
+            ->setParameter('bourse',$bourse)
+            ->setParameter('sold', true)
+            ->getQuery()->getSingleScalarResult();
+            if($totalVendu == null ){$totalVendu = 0 ;}
+            $bourse->charge = $totalVendu ;
         }
 
 
@@ -144,9 +166,17 @@ class GestionController extends Controller
             $totalFacture = 0 ;
             foreach ($listFacture as $facture) {
                 $totalFacture += $facture["total"];
-
             }
             $v->gain = $totalFacture;
+
+            $totalVendu = $repArt->createQueryBuilder('a')
+            ->select('sum(a.price)')
+            ->where('a.bourse = :bourse' , 'a.sold = :sold ')
+            ->setParameter('bourse',$v)
+            ->setParameter('sold', true)
+            ->getQuery()->getSingleScalarResult();
+            if($totalVendu == null ){$totalVendu = 0 ;}
+            $v->charge = $totalVendu ;
 
             $listArticle = $repArt->findBy(array("bourse" => $v ));
             $v->artDepose = count($listArticle) ;
@@ -173,5 +203,42 @@ class GestionController extends Controller
 		$em->flush();
        	return $this->redirect($this->generateUrl('bourse_homepage'));
 	}
+
+    public function listFactureAction(){
+        $em = $this->getDoctrine()->getManager();
+        $repFacture = $em->getRepository("BourseBundle:Facture");
+        $repAchat = $em->getRepository("BourseBundle:Achat");
+        $repBourse = $em->getRepository("BourseBundle:Bourse");
+        $bourse = $repBourse->getCurrentBourse();
+
+
+        $listFacture = $repFacture->findBy(array("bourse" => $bourse ));
+        foreach ($listFacture as $v ) {
+            $listAchat = $repAchat->findBy(array("facture" => $v ));
+            $v->nbAchat = count($listAchat);
+        }
+
+        return $this->render('BourseBundle:Gestion:listFacture.html.twig',array(
+            "listFacture" => $listFacture
+            ));
+    }
+
+    public function detailsFactureAction($id){
+        $repository = $this->getDoctrine()->getRepository("BourseBundle:Facture");
+        $facture = $repository->findOneBy(array("id" => $id ));
+
+        if($facture == null) {
+            throw $this->createNotFoundException('Facture introuvable');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $repAchat = $em->getRepository("BourseBundle:Achat");
+        $listAchat = $repAchat->findBy(array("facture" => $facture));
+
+        return $this->render('BourseBundle:Gestion:listAchat.html.twig',array(
+            "listAchat" => $listAchat,
+            "facture" => $facture
+            ));
+    }
 
 }

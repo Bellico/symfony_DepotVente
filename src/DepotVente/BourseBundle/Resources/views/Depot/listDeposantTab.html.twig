@@ -23,6 +23,7 @@
 				<th>Date d'inscription</th>
 				<th>Articles déposés</th>
 				<th>Articles vendus</th>
+				<th>Reversement</th>
 				<th>Détails</th>
 			</tr>
 			{% for user  in listUsers %}
@@ -33,6 +34,7 @@
 				<td>{{user.dateInscription | date("d/m/Y") }}</td>
 				<td>{{user.nbTotalDepoBourse}}</td>
 				<td>{{user.nbTotalVente}}</td>
+				<td>{{user.gain}} € </td>
 				<td><a href="{{ path('bourse_deposant',{id: user.id}) }} "><button class="btn btn-info" type="button">Voir la fiche</button></a></td>
 			</tr>
 			{% endfor %}

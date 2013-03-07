@@ -1,0 +1,39 @@
+{% extends "BourseBundle::layout.html.twig" %}
+
+{% block title %} Liste des factures {% endblock %}
+
+{% block body %}
+
+
+<section class="content">
+	<div class="wrap">
+
+		<h1>Mes factures</h1>
+		<table class="table" >
+			<thead>
+				<tr>
+					<th>Nro</th>
+					<th>Nombre d'articles</th>
+					<th>Date</th>
+					<th>Total</th>
+					<th>Détails</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for facture  in listFacture %}
+				<tr>
+					<td> Facture n° {{facture.id}}</td>
+					<td>{{facture.nbAchat}}</td>
+					<td>{{facture.dateFacture | date ("d/m/Y") }}</td>
+					<td>{{facture.total}}</td>
+					<td> <a href="{{ path('bourse_detailsFacture' , {id : facture.id })}}"><button class="btn btn-info" type="button">Détails</button></a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+</section>
+
+{% endblock %}
+

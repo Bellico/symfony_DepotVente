@@ -31,43 +31,64 @@
 			<div class="scrollable" style="height: 150px; overflow-y: auto"> {{bourse.description | nl2br }}</div>
 		</div>
 
-
-
-		<div style="width:500px; margin: 0 auto">
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th style="text-align:center" >Valider</th>
-						<th style="text-align:center" >Articles Déposés</th>
-						<th style="text-align:center" >Articles vendus</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="warning important">
-						<td style="text-align:center">ol</td>
-						<td style="text-align:center">{{bourse.artDepose}}</td>
-						<td style="text-align:center">{{bourse.artVendu}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div style="clear:both"></div>
-
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="text-align:center" >Articles Déposés</th>
+					<th style="text-align:center" >Articles Rétirés</th>
+					<th style="text-align:center" >Articles vendus</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="warning important">
+					<td style="text-align:center">{{bourse.artDepose}}</td>
+					<td style="text-align:center">{{bourse.nbArtRetire}}</td>
+					<td style="text-align:center">{{bourse.artVendu}}</td>
+				</tr>
+			</tbody>
+		</table>
 		<div class="progress">
 		  <div class="important bar" style="width: {{bourse.percent}}%;">{{bourse.percent}} % </div>
 		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="text-align:center" >Factures Réalisées</th>
+					<th style="text-align:center" >Recettes</th>
+					<th style="text-align:center" >Reversements aux déposants</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="success important">
+					<td style="text-align:center">{{bourse.nbFacture}}</td>
+					<td style="text-align:center">{{bourse.recette}} €</td>
+					<td style="text-align:center">{{bourse.charge}} €</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align:center"><a href="{{ path('bourse_listeFacture') }} "><button class="btn btn-info" type="button">Liste des factures</button></a></td>
+					<td style="text-align:center"> <a href="{{ path('bourse_all_deposant' , {display : 'tableau' })}}"><button class="btn btn-info" type="button">Liste des déposants</button></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="text-align:center" >Bénéfice</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="error important">
+					<td style="text-align:center">{{bourse.recette - bourse.charge }} €</td>
+				</tr>
+			</tbody>
+		</table>
+
 
 	</div>
 
 </section>
 
 {% endif %}
-
-
-<!-- <h1>Liste des bourse + voir détails (date nombre de depot nb de vente nb facture )</h1>
-		<h2>Liste fature , nb Article , montan total + détaisl</h2>
-		<h2>nombre inscript pendant la bourese</h2> -->
 
 
 <section class="content">
@@ -84,9 +105,9 @@
 					<th>Fermeture</th>
 					<th>Durée</th>
 					<th>Montant des ventes</th>
+					<th>Reversements </th>
 					<th>Articles déposés</th>
 					<th>Articles vendus</th>
-					<th style="text-align:center">Détails</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -99,9 +120,9 @@
 					<td> {{bourse.dateClose |date("d/m/Y") }}</td>
 					<td> {{bourse.long}} jour(s)</td>
 					<td> {{bourse.gain}} € </td>
+					<td> {{bourse.charge}} € </td>
 					<td> {{bourse.artDepose}} </td>
 					<td> {{bourse.artVendu}} </td>
-					<td style="text-align:center"><a href="{{ path('bourse_deleteArticleFacture',{id: 1}) }} "><button class="btn btn-danger"><i class="iconremovesign icon-white"></i></button></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>

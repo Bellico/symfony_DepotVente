@@ -101,3 +101,11 @@ bourse_all_deposant:
     defaults: { _controller: BourseBundle:Depot:showAllDeposant , display : liste}
     requirements :
         display : "liste|tableau"
+
+bourse_listeFacture:
+    pattern: /liste-facture
+    defaults: { _controller: BourseBundle:Gestion:listFacture }
+
+bourse_detailsFacture:
+    pattern: /facture/{id}
+    defaults: { _controller: BourseBundle:Gestion:detailsFacture }

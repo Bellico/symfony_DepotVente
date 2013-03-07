@@ -156,6 +156,18 @@ class DepotController extends Controller
 
 
         foreach ($list as $v) {
+
+            $totalVendu = $repArticle->createQueryBuilder('a')
+            ->select('sum(a.price)')
+            ->where('a.bourse = :bourse' , 'a.sold = :sold ' , 'a.user = :user')
+            ->setParameter('bourse',$bourse)
+            ->setParameter('sold', true)
+            ->setParameter('user', $v)
+            ->getQuery()->getSingleScalarResult();
+            if($totalVendu == null ){$totalVendu = 0 ;}
+
+            $v->gain = $totalVendu ;
+
         	$v->nbTotalDepoBourse = count($repArticle->findBy(array(
 	            "bourse" => $bourse,
 	            "user" => $v
